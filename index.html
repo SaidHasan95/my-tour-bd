@@ -13,7 +13,7 @@
       --bg-dark: #0f172a;
       --card-bg: #ffffff;
       --accent-green: #0d6342;
-      --pill-bg: #e2e8f0;
+      --pill-bg: #f1f5f9;
       --text-dark: #1e293b;
       --text-muted: #64748b;
       --gold-accent: #f59e0b;
@@ -32,7 +32,7 @@
 
     .app-container {
       display: grid;
-      grid-template-columns: 340px 1fr;
+      grid-template-columns: 320px 1fr;
       gap: 15px;
       max-width: 1200px;
       width: 100%;
@@ -47,7 +47,7 @@
       background: #ffffff;
       border-radius: 16px;
       padding: 15px;
-      max-height: 880px;
+      max-height: 850px;
       display: flex;
       flex-direction: column;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -69,7 +69,7 @@
     }
 
     .divisions-scroll { overflow-y: auto; padding-right: 5px; flex: 1; max-height: 450px; }
-    @media (min-width: 901px) { .divisions-scroll { max-height: 700px; } }
+    @media (min-width: 901px) { .divisions-scroll { max-height: 680px; } }
 
     .division-block { margin-bottom: 14px; }
     .division-header { 
@@ -80,10 +80,10 @@
     .district-pills { display: flex; flex-wrap: wrap; gap: 6px; }
 
     .pill-btn {
-      background: var(--pill-bg); color: var(--text-dark); border: none;
+      background: var(--pill-bg); color: var(--text-dark); border: 1px solid #e2e8f0;
       padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
     }
-    .pill-btn.selected { background: var(--accent-green); color: #ffffff; font-weight: 600; }
+    .pill-btn.selected { background: var(--accent-green); color: #ffffff; border-color: var(--accent-green); font-weight: 600; }
 
     /* Controls Bar */
     .controls-card {
@@ -104,11 +104,11 @@
       padding: 7px 12px; border-radius: 10px; font-size: 0.82rem; border: 1px solid #cbd5e1; outline: none;
     }
     .custom-file-btn { background: #f1f5f9; cursor: pointer; display: flex; align-items: center; gap: 5px; font-weight: 600;}
-    .name-input { background: #f8fafc; font-weight: 600; color: #0f172a; width: 130px; }
+    .name-input { background: #f8fafc; font-weight: 600; color: #0f172a; width: 140px; }
 
     /* Map Section Area */
     .map-section {
-      background: var(--card-bg); border-radius: 16px; padding: 20px;
+      background: var(--card-bg); border-radius: 16px; padding: 22px;
       display: flex; flex-direction: column; position: relative;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
@@ -120,7 +120,7 @@
     
     /* Prominent Medal Badge Box */
     .level-badge-box {
-      display: inline-flex; flex-direction: column; align-items: flex-start; gap: 3px; margin-top: 6px;
+      display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 8px;
     }
     .level-badge {
       display: inline-flex; align-items: center; gap: 6px;
@@ -132,35 +132,37 @@
     .badge-silver { background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%); color: #334155; border: 2px solid #94A3B8; }
     .badge-gold { background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); color: #78350F; border: 2px solid #F59E0B; }
 
-    .level-review { font-size: 0.75rem; color: #475569; font-weight: 700; }
+    .level-review { font-size: 0.78rem; color: #475569; font-weight: 700; }
 
     .stats-score { font-size: 2.2rem; font-weight: 800; color: var(--accent-green); text-align: right; }
     .stats-score span { font-size: 1.1rem; color: #64748b; font-weight: 500; }
 
-    /* Static Block Map Grid Container */
+    /* Clean Block Map Grid Container */
     .block-map-container {
-      width: 100%; min-height: 420px; margin: 15px 0; border-radius: 12px; background: #f8fafc;
-      border: 1px solid #e2e8f0; padding: 15px; display: flex; flex-direction: column; gap: 15px;
-      justify-content: center;
+      width: 100%; margin: 15px 0; border-radius: 12px; background: #f8fafc;
+      border: 1px solid #e2e8f0; padding: 15px; display: flex; flex-direction: column; gap: 12px;
     }
 
     .division-grid-row {
-      display: flex; flex-direction: column; gap: 6px;
+      display: flex; flex-direction: column; gap: 5px; background: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #f1f5f9;
     }
     .div-title-label {
-      font-size: 0.8rem; font-weight: 700; color: var(--text-muted); border-bottom: 1px dashed #cbd5e1; padding-bottom: 2px;
+      font-size: 0.8rem; font-weight: 700; color: var(--accent-green); margin-bottom: 2px;
     }
     .blocks-flex {
       display: flex; flex-wrap: wrap; gap: 6px;
     }
     .district-block-item {
-      background: #e2e8f0; color: #334155; padding: 6px 10px; border-radius: 8px;
-      font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+      background: #f1f5f9; color: #334155; padding: 6px 12px; border-radius: 8px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
       border: 1px solid #cbd5e1; user-select: none;
+    }
+    .district-block-item:hover {
+      border-color: var(--accent-green);
     }
     .district-block-item.selected {
       background: var(--accent-green); color: #ffffff; border-color: var(--accent-green); font-weight: 700;
-      box-shadow: 0 2px 5px rgba(13, 99, 66, 0.3);
+      box-shadow: 0 3px 6px rgba(13, 99, 66, 0.25);
     }
     .district-block-item.home-selected {
       background: #f59e0b; color: #78350f; border-color: #d97706; font-weight: 700;
@@ -245,6 +247,7 @@
               <span id="display-name">আমার বাংলাদেশ</span>
             </div>
             
+            <!-- Medal Badge -->
             <div class="level-badge-box">
               <div class="level-badge badge-bronze" id="level-badge">🥉 ব্রোঞ্জ পদক — শিক্ষানবিশ ভ্রমণকারী</div>
               <div class="level-review" id="level-review">ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।</div>
@@ -253,7 +256,7 @@
           <div class="stats-score" id="stats-score">০<span>/৬৪</span></div>
         </div>
 
-        <!-- Static Block Map Grid View -->
+        <!-- Block Map Grid View -->
         <div class="block-map-container" id="block-map-grid"></div>
 
         <div class="progress-section">

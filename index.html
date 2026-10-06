@@ -6,7 +6,7 @@
   <title>My Tour Bangladesh</title>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Leaflet CSS & JS for Real GeoJSON Map -->
+  <!-- Leaflet CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
@@ -120,7 +120,6 @@
     .map-title-main { font-size: 1.8rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 10px; }
     .user-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; display: none; border: 2px solid var(--accent-green); }
     
-    /* Level Badge Component */
     .level-badge {
       display: inline-flex; align-items: center; gap: 6px; background: #FEF3C7; color: #92400E;
       padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-top: 4px;
@@ -130,7 +129,6 @@
     .stats-score { font-size: 2.5rem; font-weight: 800; color: var(--accent-green); text-align: right; }
     .stats-score span { font-size: 1.2rem; color: #64748b; font-weight: 500; }
 
-    /* Leaflet Map Box */
     #leaflet-map {
       width: 100%; height: 480px; margin: 15px 0; border-radius: 12px; background: transparent;
     }
@@ -138,7 +136,6 @@
     .leaflet-container { background: transparent !important; }
     .leaflet-control-attribution, .leaflet-control-zoom { display: none !important; }
 
-    /* District Text Tooltip Labels */
     .district-label-tooltip {
       background: rgba(255, 255, 255, 0.95); border: 1px solid #cbd5e1;
       border-radius: 5px; padding: 2px 6px; font-weight: bold; font-size: 11px;
@@ -148,7 +145,6 @@
       background: var(--accent-green); color: #ffffff; border-color: var(--accent-green);
     }
 
-    /* Progress Section */
     .progress-section { margin-top: 5px; }
     .progress-bar-bg { width: 100%; height: 10px; background: #e2e0d8; border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
     .progress-bar-fill { height: 100%; background: var(--accent-green); width: 0%; transition: width 0.4s ease; }
@@ -171,7 +167,6 @@
     }
     .brand-logo-icon { width: 18px; height: 18px; background: var(--accent-green); border-radius: 4px; display: inline-block; }
 
-    /* Download Card */
     .download-card { background: #ffffff; border-radius: 16px; padding: 20px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
     .download-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: #0f172a; }
     .download-buttons-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
@@ -187,8 +182,6 @@
 <body>
 
   <div class="app-container">
-    
-    <!-- Left Sidebar -->
     <div class="sidebar">
       <div class="sidebar-header">
         <span class="sidebar-title">ভ্রমণ করা জেলা চিহ্নিত করুন</span>
@@ -197,7 +190,6 @@
 
       <input type="text" id="search-input" class="search-box" placeholder="জেলা খুঁজুন...">
       
-      <!-- New Feature: Home District Selector -->
       <select id="home-district-select" class="home-district-select" onchange="setHomeDistrict(this.value)">
         <option value="">🏠 আপনার নিজের জেলা নির্বাচন করুন...</option>
       </select>
@@ -205,7 +197,6 @@
       <div class="divisions-scroll" id="divisions-list"></div>
     </div>
 
-    <!-- Right Area -->
     <div>
       <div class="controls-card">
         <div class="theme-selector">
@@ -227,7 +218,6 @@
         </div>
       </div>
 
-      <!-- Main Export Card -->
       <div class="map-section" id="export-card">
         <div class="map-header">
           <div>
@@ -236,16 +226,13 @@
               <img id="display-avatar" class="user-avatar" alt="User">
               <span id="display-name">আমার বাংলাদেশ</span>
             </div>
-            <!-- New Feature: Travel Level Badge -->
             <div class="level-badge" id="level-badge">🌱 Beginner Traveler</div>
           </div>
           <div class="stats-score" id="stats-score">০<span>/৬৪</span></div>
         </div>
 
-        <!-- Real Leaflet Map -->
         <div id="leaflet-map"></div>
 
-        <!-- Progress -->
         <div class="progress-section">
           <div class="progress-bar-bg">
             <div class="progress-bar-fill" id="progress-fill"></div>
@@ -256,7 +243,6 @@
           </div>
         </div>
 
-        <!-- Slogan -->
         <div class="slogan-box">
           <div>
             <div class="slogan-text-sub">মানচিত্র পূরণ করতে</div>
@@ -265,7 +251,6 @@
           <a class="social-btn">🇧🇩</a>
         </div>
 
-        <!-- Footer -->
         <div class="brand-footer">
           <span class="brand-logo-icon"></span>
           <span>My Tour Bangladesh</span>
@@ -273,7 +258,6 @@
         </div>
       </div>
 
-      <!-- Download Options -->
       <div class="download-card">
         <h4>আপনার ম্যাপ ডাউনলোড করুন</h4>
         <div class="download-buttons-grid">
@@ -282,9 +266,7 @@
           <button class="btn-dl-box" onclick="downloadMap('pdf')">↓ PDF</button>
         </div>
       </div>
-
     </div>
-
   </div>
 
   <script>
@@ -310,73 +292,72 @@
       "Brahmanbaria": "ব্রাহ্মণবাড়িয়া", "Comilla": "কুমিল্লা", "Chandpur": "চাঁদপুর", "Lakshmipur": "লক্ষ্মীপুর", "Noakhali": "নোয়াখালী", "Feni": "ফেনী", "Khagrachhari": "খাগড়াছড়ি", "Rangamati": "রাঙামাটি", "Chittagong": "চট্টগ্রাম", "Bandarban": "বান্দরবান", "Cox's Bazar": "কক্সবাজার"
     };
 
+    const districtCoords = {
+      "Panchagarh": [26.3411, 88.5541], "Thakurgaon": [26.0336, 88.4616], "Dinajpur": [25.6279, 88.6332], "Nilphamari": [25.9317, 88.8560], "Lalmonirhat": [25.9165, 89.4532], "Rangpur": [25.7439, 89.2752], "Kurigram": [25.8054, 89.6361], "Gaibandha": [25.3288, 89.5409],
+      "Joypurhat": [25.1015, 89.0269], "Bogura": [24.8465, 89.3730], "Naogaon": [24.8103, 88.9414], "Natore": [24.4102, 89.0076], "Nawabganj": [24.5965, 88.2775], "Rajshahi": [24.3745, 88.6042], "Sirajganj": [24.4534, 89.7008], "Pabna": [24.0064, 89.2500],
+      "Jamalpur": [24.9375, 89.9377], "Sherpur": [25.0204, 90.0153], "Mymensingh": [24.7471, 90.4203], "Netrokona": [24.8709, 90.7279],
+      "Sunamganj": [25.0658, 91.3950], "Sylhet": [24.8949, 91.8687], "Moulvibazar": [24.4829, 91.7774], "Habiganj": [24.3749, 91.4155],
+      "Tangail": [24.2513, 89.9167], "Kishoreganj": [24.4449, 90.7765], "Manikganj": [23.8644, 90.0047], "Dhaka": [23.8103, 90.4125], "Gazipur": [24.0023, 90.4264], "Narsingdi": [23.9193, 90.7176], "Narayanganj": [23.6238, 90.5000], "Munshiganj": [23.5422, 90.5305], "Faridpur": [23.6071, 89.8406], "Rajbari": [23.7574, 89.6444], "Gopalganj": [23.0050, 89.8266], "Madaripur": [23.1641, 90.1897], "Shariatpur": [23.2423, 90.4348],
+      "Kushtia": [23.9013, 89.1205], "Meherpur": [23.7622, 88.6318], "Chuadanga": [23.6401, 88.8418], "Jhenaidah": [23.5448, 89.1539], "Magura": [23.4873, 89.4199], "Narail": [23.1725, 89.5127], "Jessore": [23.1664, 89.2081], "Satkhira": [22.7185, 89.0705], "Khulna": [22.8456, 89.5403], "Bagerhat": [22.6516, 89.7859],
+      "Pirojpur": [22.5841, 89.9720], "Jhalokati": [22.6406, 90.1987], "Barisal": [22.7010, 90.3535], "Bhola": [22.6859, 90.6481], "Barguna": [22.1570, 90.1223], "Patuakhali": [22.3596, 90.3299],
+      "Brahmanbaria": [23.9571, 91.1119], "Comilla": [23.4607, 91.1809], "Chandpur": [23.2333, 90.6667], "Lakshmipur": [22.9447, 90.8282], "Noakhali": [22.8696, 91.0994], "Feni": [23.0159, 91.3976], "Khagrachhari": [23.1192, 91.9847], "Rangamati": [22.6533, 92.1753], "Chittagong": [22.3569, 91.7832], "Bandarban": [21.8311, 92.3686], "Cox's Bazar": [21.4272, 92.0058]
+    };
+
     function toBanglaNum(num) {
       const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
       return num.toString().replace(/\d/g, d => bnNums[d]);
     }
 
-    let map, geojsonLayer;
+    let map;
     let selectedDistricts = new Set();
-    let districtLayers = {};
+    let districtMarkers = {};
     let homeDistrict = "";
 
     function initMap() {
       map = L.map('leaflet-map', {
-        center: [23.8103, 90.4125],
+        center: [23.6850, 90.3563],
         zoom: 7,
         zoomControl: false,
-        dragging: false,
+        dragging: true,
         scrollWheelZoom: false,
         doubleClickZoom: false
       });
 
-      fetch('https://raw.githubusercontent.com/fahimreza-dev/bangladesh-geojson/master/bd-districts.json')
-        .then(res => res.json())
-        .then(data => {
-          geojsonLayer = L.geoJSON(data, {
-            style: styleFeature,
-            onEachFeature: onEachDistrict
-          }).addTo(map);
+      // Free OpenStreetMap Base Layer (No API key needed)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
 
-          map.fitBounds(geojsonLayer.getBounds());
-        })
-        .catch(() => {
-          alert("মানচিত্রের ফাইল লোড হতে সমস্যা হয়েছে। অনুগ্রহ করে লাইভ সার্ভার অথবা ওয়েবসাইট আপলোড করে চেক করুন।");
+      // Create Markers for 64 Districts
+      Object.keys(districtCoords).forEach(distName => {
+        const coords = districtCoords[distName];
+        const bnName = bnNames[distName] || distName;
+
+        const circleMarker = L.circleMarker(coords, {
+          radius: 8,
+          fillColor: '#cbd5e1',
+          color: '#ffffff',
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.9
+        }).addTo(map);
+
+        circleMarker.bindTooltip(bnName, {
+          permanent: false,
+          direction: 'top',
+          className: 'district-label-tooltip'
         });
+
+        circleMarker.on('click', () => {
+          toggleDistrict(distName);
+        });
+
+        districtMarkers[distName] = circleMarker;
+      });
 
       buildSidebar();
       populateHomeDistrictDropdown();
-    }
-
-    function styleFeature(feature) {
-      const name = feature.properties.NAME_2 || feature.properties.district;
-      const isSelected = selectedDistricts.has(name);
-      const isHome = (name === homeDistrict);
-
-      return {
-        fillColor: isHome ? '#f59e0b' : (isSelected ? getComputedStyle(document.documentElement).getPropertyValue('--accent-green').trim() : '#e0dbcd'),
-        weight: isHome ? 2.5 : 1.2,
-        opacity: 1,
-        color: isHome ? '#78350f' : '#ffffff',
-        fillOpacity: 0.95
-      };
-    }
-
-    function onEachDistrict(feature, layer) {
-      const distName = feature.properties.NAME_2 || feature.properties.district;
-      districtLayers[distName] = layer;
-
-      const bnName = bnNames[distName] || distName;
-
-      layer.bindTooltip(bnName, {
-        permanent: false,
-        direction: 'center',
-        className: 'district-label-tooltip'
-      });
-
-      layer.on('click', () => {
-        toggleDistrict(distName);
-      });
     }
 
     function populateHomeDistrictDropdown() {
@@ -433,7 +414,7 @@
 
     function toggleDistrict(distName) {
       if (selectedDistricts.has(distName)) {
-        if(distName === homeDistrict) homeDistrict = ""; // Unmark home
+        if(distName === homeDistrict) homeDistrict = "";
         selectedDistricts.delete(distName);
       } else {
         selectedDistricts.add(distName);
@@ -442,11 +423,8 @@
     }
 
     function updateUI() {
-      if (geojsonLayer) {
-        geojsonLayer.setStyle(styleFeature);
-      }
+      const activeThemeColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-green').trim();
 
-      // Sidebar Updates & Division Progress Tracker
       Object.keys(divisionsMap).forEach(divKey => {
         let divCount = 0;
         divisionsMap[divKey].forEach(d => {
@@ -459,38 +437,40 @@
       Object.keys(bnNames).forEach(distName => {
         const pill = document.getElementById(`pill-${distName.replace(/\s+/g, '')}`);
         const isSelected = selectedDistricts.has(distName);
+        const isHome = (distName === homeDistrict);
 
         if (pill) {
           if (isSelected) pill.classList.add('selected');
           else pill.classList.remove('selected');
         }
 
-        const layer = districtLayers[distName];
-        if (layer) {
-          const tooltip = layer.getTooltip();
-          if (tooltip) {
-            const showAll = document.getElementById('toggle-names').checked;
-            let labelText = bnNames[distName] || distName;
-            if(distName === homeDistrict) labelText += " ⭐";
+        const marker = districtMarkers[distName];
+        if (marker) {
+          if (isHome) {
+            marker.setStyle({ fillColor: '#f59e0b', radius: 12, color: '#78350f', weight: 3 });
+          } else if (isSelected) {
+            marker.setStyle({ fillColor: activeThemeColor, radius: 10, color: '#ffffff', weight: 2 });
+          } else {
+            marker.setStyle({ fillColor: '#cbd5e1', radius: 7, color: '#ffffff', weight: 1.5 });
+          }
 
-            layer.setTooltipContent(labelText);
+          const showAll = document.getElementById('toggle-names').checked;
+          let labelText = bnNames[distName] || distName;
+          if(isHome) labelText += " ⭐";
 
-            if (showAll || isSelected) {
-              layer.openTooltip();
-              if (isSelected) tooltip.getElement()?.classList.add('selected-tooltip');
-              else tooltip.getElement()?.classList.remove('selected-tooltip');
-            } else {
-              layer.closeTooltip();
-            }
+          marker.setTooltipContent(labelText);
+
+          if (showAll || isSelected || isHome) {
+            marker.openTooltip();
+          } else {
+            marker.closeTooltip();
           }
         }
       });
 
-      // Calculate Counts, Progress & Dynamic Level Badge
       const count = selectedDistricts.size;
       const percentage = Math.round((count / 64) * 100);
 
-      // Level Calculator
       const levelBadgeEl = document.getElementById('level-badge');
       if (count === 0) levelBadgeEl.innerHTML = "🌱 Beginner Traveler";
       else if (count <= 10) levelBadgeEl.innerHTML = "🧭 Rookie Explorer";
@@ -516,7 +496,7 @@
     function setTheme(accentColor, cardBgColor) {
       document.documentElement.style.setProperty('--accent-green', accentColor);
       document.documentElement.style.setProperty('--card-bg', cardBgColor);
-      if (geojsonLayer) geojsonLayer.setStyle(styleFeature);
+      updateUI();
     }
 
     function updateName() {

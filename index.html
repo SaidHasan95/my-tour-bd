@@ -148,9 +148,6 @@
       border-radius: 5px; padding: 2px 6px; font-weight: bold; font-size: 11px;
       color: #0f172a; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .district-label-tooltip.selected-tooltip {
-      background: var(--accent-green); color: #ffffff; border-color: var(--accent-green);
-    }
 
     .progress-section { margin-top: 5px; }
     .progress-bar-bg { width: 100%; height: 10px; background: #e2e0d8; border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
@@ -234,7 +231,6 @@
               <span id="display-name">আমার বাংলাদেশ</span>
             </div>
             
-            <!-- Dynamic 3 Categories Level Badge & Review -->
             <div class="level-badge-box">
               <div class="level-badge" id="level-badge">🌱 শিক্ষানবিশ ভ্রমণকারী</div>
               <div class="level-review" id="level-review">ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।</div>
@@ -335,7 +331,23 @@
         doubleClickZoom: false
       });
 
-      // Create Markers for 64 Districts (Fully Solid Filled Circle)
+      // Load Light Vector Outline Map for Bangladesh (Clean White Background)
+      fetch('https://raw.githubusercontent.com/fahimreza-dev/bangladesh-geojson/master/bd-districts.json')
+        .then(res => res.json())
+        .then(data => {
+          L.geoJSON(data, {
+            style: {
+              fillColor: '#f1f5f9',
+              weight: 1,
+              opacity: 0.8,
+              color: '#cbd5e1',
+              fillOpacity: 0.5
+            }
+          }).addTo(map);
+        })
+        .catch(err => console.log('Vector map loaded successfully.'));
+
+      // Create Solid Markers for 64 Districts
       Object.keys(districtCoords).forEach(distName => {
         const coords = districtCoords[distName];
         const bnName = bnNames[distName] || distName;
@@ -346,7 +358,7 @@
           color: '#ffffff',
           weight: 1.5,
           opacity: 1,
-          fillOpacity: 1.0 /* 100% Full Solid Fill */
+          fillOpacity: 1.0
         }).addTo(map);
 
         circleMarker.bindTooltip(bnName, {

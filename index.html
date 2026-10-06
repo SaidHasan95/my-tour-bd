@@ -16,7 +16,7 @@
   <style>
     :root {
       --bg-dark: #0f172a;
-      --card-bg: #f5f4ee;
+      --card-bg: #ffffff;
       --accent-green: #0d6342;
       --pill-bg: #e2e8f0;
       --text-dark: #1e293b;
@@ -120,34 +120,49 @@
     .map-title-main { font-size: 1.8rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 10px; }
     .user-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; display: none; border: 2px solid var(--accent-green); }
     
+    /* Prominent Medal Badge Box */
     .level-badge-box {
-      display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-top: 6px;
+      display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 8px;
     }
     .level-badge {
-      display: inline-flex; align-items: center; gap: 6px; background: #FEF3C7; color: #92400E;
-      padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;
-      border: 1px solid #FDE68A;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 30px; font-size: 1rem; font-weight: 800;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s ease;
     }
+    
+    /* 3 Category Medal Styles */
+    .badge-bronze {
+      background: linear-gradient(135deg, #FFE4D6 0%, #FCD3C1 100%);
+      color: #7C2D12; border: 2px solid #F97316;
+    }
+    .badge-silver {
+      background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+      color: #334155; border: 2px solid #94A3B8;
+    }
+    .badge-gold {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      color: #78350F; border: 2px solid #F59E0B;
+    }
+
     .level-review {
-      font-size: 0.78rem; color: #475569; font-weight: 600; margin-top: 2px;
+      font-size: 0.82rem; color: #475569; font-weight: 700; margin-top: 2px;
     }
 
     .stats-score { font-size: 2.5rem; font-weight: 800; color: var(--accent-green); text-align: right; }
     .stats-score span { font-size: 1.2rem; color: #64748b; font-weight: 500; }
 
     #leaflet-map {
-      width: 100%; height: 500px; margin: 15px 0; border-radius: 12px; background: transparent !important;
+      width: 100%; height: 500px; margin: 15px 0; border-radius: 12px; background: #ffffff !important;
     }
 
-    .leaflet-container { background: transparent !important; }
+    .leaflet-container { background: #ffffff !important; }
     .leaflet-control-attribution, .leaflet-control-zoom { display: none !important; }
 
     .district-label-tooltip {
       background: rgba(255, 255, 255, 0.95); border: 1px solid #cbd5e1;
-      border-radius: 4px; padding: 1px 5px; font-weight: 800; font-size: 10px;
-      color: #0f172a; box-shadow: 0 2px 4px rgba(0,0,0,0.1); pointer-events: none;
+      border-radius: 5px; padding: 2px 6px; font-weight: bold; font-size: 11px;
+      color: #0f172a; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .district-label-tooltip::before { display: none; }
 
     .progress-section { margin-top: 5px; }
     .progress-bar-bg { width: 100%; height: 10px; background: #e2e0d8; border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
@@ -204,10 +219,10 @@
     <div>
       <div class="controls-card">
         <div class="theme-selector">
-          <div class="theme-dot" style="background:#0d6342;" onclick="setTheme('#0d6342', '#f5f4ee')"></div>
-          <div class="theme-dot" style="background:#1e3a8a;" onclick="setTheme('#1e3a8a', '#edf2f7')"></div>
-          <div class="theme-dot" style="background:#b91c1c;" onclick="setTheme('#b91c1c', '#fdf2f2')"></div>
-          <div class="theme-dot" style="background:#0f172a;" onclick="setTheme('#0f172a', '#f1f5f9')"></div>
+          <div class="theme-dot" style="background:#0d6342;" onclick="setTheme('#0d6342', '#ffffff')"></div>
+          <div class="theme-dot" style="background:#1e3a8a;" onclick="setTheme('#1e3a8a', '#ffffff')"></div>
+          <div class="theme-dot" style="background:#b91c1c;" onclick="setTheme('#b91c1c', '#ffffff')"></div>
+          <div class="theme-dot" style="background:#0f172a;" onclick="setTheme('#0f172a', '#ffffff')"></div>
         </div>
 
         <div class="user-inputs">
@@ -231,8 +246,9 @@
               <span id="display-name">আমার বাংলাদেশ</span>
             </div>
             
+            <!-- Dynamic 3 Categories Big Medal Badges -->
             <div class="level-badge-box">
-              <div class="level-badge" id="level-badge">🌱 শিক্ষানবিশ ভ্রমণকারী</div>
+              <div class="level-badge badge-bronze" id="level-badge">🥉 ব্রোঞ্জ পদক — শিক্ষানবিশ ভ্রমণকারী</div>
               <div class="level-review" id="level-review">ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।</div>
             </div>
           </div>
@@ -300,31 +316,26 @@
       "Brahmanbaria": "ব্রাহ্মণবাড়িয়া", "Comilla": "কুমিল্লা", "Chandpur": "চাঁদপুর", "Lakshmipur": "লক্ষ্মীপুর", "Noakhali": "নোয়াখালী", "Feni": "ফেনী", "Khagrachhari": "খাগড়াছড়ি", "Rangamati": "রাঙামাটি", "Chittagong": "চট্টগ্রাম", "Bandarban": "বান্দরবান", "Cox's Bazar": "কক্সবাজার"
     };
 
+    const districtCoords = {
+      "Panchagarh": [26.3411, 88.5541], "Thakurgaon": [26.0336, 88.4616], "Dinajpur": [25.6279, 88.6332], "Nilphamari": [25.9317, 88.8560], "Lalmonirhat": [25.9165, 89.4532], "Rangpur": [25.7439, 89.2752], "Kurigram": [25.8054, 89.6361], "Gaibandha": [25.3288, 89.5409],
+      "Joypurhat": [25.1015, 89.0269], "Bogura": [24.8465, 89.3730], "Naogaon": [24.8103, 88.9414], "Natore": [24.4102, 89.0076], "Nawabganj": [24.5965, 88.2775], "Rajshahi": [24.3745, 88.6042], "Sirajganj": [24.4534, 89.7008], "Pabna": [24.0064, 89.2500],
+      "Jamalpur": [24.9375, 89.9377], "Sherpur": [25.0204, 90.0153], "Mymensingh": [24.7471, 90.4203], "Netrokona": [24.8709, 90.7279],
+      "Sunamganj": [25.0658, 91.3950], "Sylhet": [24.8949, 91.8687], "Moulvibazar": [24.4829, 91.7774], "Habiganj": [24.3749, 91.4155],
+      "Tangail": [24.2513, 89.9167], "Kishoreganj": [24.4449, 90.7765], "Manikganj": [23.8644, 90.0047], "Dhaka": [23.8103, 90.4125], "Gazipur": [24.0023, 90.4264], "Narsingdi": [23.9193, 90.7176], "Narayanganj": [23.6238, 90.5000], "Munshiganj": [23.5422, 90.5305], "Faridpur": [23.6071, 89.8406], "Rajbari": [23.7574, 89.6444], "Gopalganj": [23.0050, 89.8266], "Madaripur": [23.1641, 90.1897], "Shariatpur": [23.2423, 90.4348],
+      "Kushtia": [23.9013, 89.1205], "Meherpur": [23.7622, 88.6318], "Chuadanga": [23.6401, 88.8418], "Jhenaidah": [23.5448, 89.1539], "Magura": [23.4873, 89.4199], "Narail": [23.1725, 89.5127], "Jessore": [23.1664, 89.2081], "Satkhira": [22.7185, 89.0705], "Khulna": [22.8456, 89.5403], "Bagerhat": [22.6516, 89.7859],
+      "Pirojpur": [22.5841, 89.9720], "Jhalokati": [22.6406, 90.1987], "Barisal": [22.7010, 90.3535], "Bhola": [22.6859, 90.6481], "Barguna": [22.1570, 90.1223], "Patuakhali": [22.3596, 90.3299],
+      "Brahmanbaria": [23.9571, 91.1119], "Comilla": [23.4607, 91.1809], "Chandpur": [23.2333, 90.6667], "Lakshmipur": [22.9447, 90.8282], "Noakhali": [22.8696, 91.0994], "Feni": [23.0159, 91.3976], "Khagrachhari": [23.1192, 91.9847], "Rangamati": [22.6533, 92.1753], "Chittagong": [22.3569, 91.7832], "Bandarban": [21.8311, 92.3686], "Cox's Bazar": [21.4272, 92.0058]
+    };
+
     function toBanglaNum(num) {
       const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
       return num.toString().replace(/\d/g, d => bnNums[d]);
     }
 
     let map;
-    let geojsonLayer;
     let selectedDistricts = new Set();
-    let districtLayers = {};
+    let districtMarkers = {};
     let homeDistrict = "";
-
-    function styleDistrict(feature) {
-      const name = feature.properties.NAME_2 || feature.properties.district || feature.properties.ADM2_EN;
-      const isSelected = selectedDistricts.has(name);
-      const isHome = (name === homeDistrict);
-      const activeColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-green').trim();
-
-      return {
-        fillColor: isHome ? '#f59e0b' : (isSelected ? activeColor : '#e6e4da'),
-        weight: isHome ? 2 : 1.2,
-        opacity: 1,
-        color: '#ffffff',
-        fillOpacity: isSelected || isHome ? 1.0 : 0.95
-      };
-    }
 
     function initMap() {
       map = L.map('leaflet-map', {
@@ -336,48 +347,40 @@
         doubleClickZoom: false
       });
 
-      const geoJsonUrls = [
-        'https://raw.githubusercontent.com/fahimreza-dev/bangladesh-geojson/master/bd-districts.json',
-        'https://cdn.jsdelivr.net/gh/fahimreza-dev/bangladesh-geojson@master/bd-districts.json'
-      ];
+      // Standard OSM Tile Layer (100% Reliable & No API Error)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+      }).addTo(map);
 
-      function fetchGeoJSON(index) {
-        if (index >= geoJsonUrls.length) return;
-        fetch(geoJsonUrls[index])
-          .then(res => res.json())
-          .then(data => {
-            geojsonLayer = L.geoJSON(data, {
-              style: styleDistrict,
-              onEachFeature: onEachDistrictFeature
-            }).addTo(map);
+      // Create Solid Markers for 64 Districts
+      Object.keys(districtCoords).forEach(distName => {
+        const coords = districtCoords[distName];
+        const bnName = bnNames[distName] || distName;
 
-            map.fitBounds(geojsonLayer.getBounds(), { padding: [10, 10] });
-          })
-          .catch(() => fetchGeoJSON(index + 1));
-      }
+        const circleMarker = L.circleMarker(coords, {
+          radius: 9,
+          fillColor: '#94a3b8',
+          color: '#ffffff',
+          weight: 1.5,
+          opacity: 1,
+          fillOpacity: 1.0
+        }).addTo(map);
 
-      fetchGeoJSON(0);
+        circleMarker.bindTooltip(bnName, {
+          permanent: false,
+          direction: 'top',
+          className: 'district-label-tooltip'
+        });
+
+        circleMarker.on('click', () => {
+          toggleDistrict(distName);
+        });
+
+        districtMarkers[distName] = circleMarker;
+      });
 
       buildSidebar();
       populateHomeDistrictDropdown();
-    }
-
-    function onEachDistrictFeature(feature, layer) {
-      const distName = feature.properties.NAME_2 || feature.properties.district || feature.properties.ADM2_EN;
-      if (!distName) return;
-
-      districtLayers[distName] = layer;
-      const bnName = bnNames[distName] || distName;
-
-      layer.bindTooltip(bnName, {
-        permanent: false,
-        direction: 'center',
-        className: 'district-label-tooltip'
-      });
-
-      layer.on('click', () => {
-        toggleDistrict(distName);
-      });
     }
 
     function populateHomeDistrictDropdown() {
@@ -443,9 +446,7 @@
     }
 
     function updateUI() {
-      if (geojsonLayer) {
-        geojsonLayer.setStyle(styleDistrict);
-      }
+      const activeThemeColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-green').trim();
 
       Object.keys(divisionsMap).forEach(divKey => {
         let divCount = 0;
@@ -466,18 +467,26 @@
           else pill.classList.remove('selected');
         }
 
-        const layer = districtLayers[distName];
-        if (layer) {
+        const marker = districtMarkers[distName];
+        if (marker) {
+          if (isHome) {
+            marker.setStyle({ fillColor: '#f59e0b', radius: 12, color: '#78350f', weight: 2, fillOpacity: 1.0 });
+          } else if (isSelected) {
+            marker.setStyle({ fillColor: activeThemeColor, radius: 10, color: '#ffffff', weight: 2, fillOpacity: 1.0 });
+          } else {
+            marker.setStyle({ fillColor: '#94a3b8', radius: 8, color: '#ffffff', weight: 1.5, fillOpacity: 1.0 });
+          }
+
           const showAll = document.getElementById('toggle-names').checked;
           let labelText = bnNames[distName] || distName;
           if(isHome) labelText += " ⭐";
 
-          layer.setTooltipContent(labelText);
+          marker.setTooltipContent(labelText);
 
           if (showAll || isSelected || isHome) {
-            layer.openTooltip();
+            marker.openTooltip();
           } else {
-            layer.closeTooltip();
+            marker.closeTooltip();
           }
         }
       });
@@ -485,17 +494,21 @@
       const count = selectedDistricts.size;
       const percentage = Math.round((count / 64) * 100);
 
+      /* Prominent 3-Category Medal Badges & Reviews */
       const levelBadgeEl = document.getElementById('level-badge');
       const levelReviewEl = document.getElementById('level-review');
 
       if (count <= 20) {
-        levelBadgeEl.innerHTML = "🌱 শিক্ষানবিশ ভ্রমণকারী";
+        levelBadgeEl.className = "level-badge badge-bronze";
+        levelBadgeEl.innerHTML = "🥉 ব্রোঞ্জ পদক — শিক্ষানবিশ ভ্রমণকারী";
         levelReviewEl.innerHTML = "ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।";
       } else if (count <= 45) {
-        levelBadgeEl.innerHTML = "🎒 অভিজ্ঞ ভ্রমণকারী";
+        levelBadgeEl.className = "level-badge badge-silver";
+        levelBadgeEl.innerHTML = "🥈 সিলভার পদক — অভিজ্ঞ ভ্রমণকারী";
         levelReviewEl.innerHTML = "দারুণ অগ্রগতি! আপনি বাংলাদেশের রূপ-বৈচিত্র্যের এক সুন্দর অভিজ্ঞ পর্যটক।";
       } else {
-        levelBadgeEl.innerHTML = "🏆 বাংলাদেশ জয়ী";
+        levelBadgeEl.className = "level-badge badge-gold";
+        levelBadgeEl.innerHTML = "🥇 গোল্ডেন পদক — বাংলাদেশ জয়ী";
         levelReviewEl.innerHTML = "অসাধারণ কীর্তি! পুরো বাংলাদেশ ভ্রমণের এক অনন্য ও অনুপ্রেরণাদায়ী রেকর্ড আপনার।";
       }
 

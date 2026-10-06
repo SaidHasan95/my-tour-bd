@@ -58,4 +58,519 @@
 
     .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .sidebar-title { font-size: 1.1rem; font-weight: 700; }
-    .count-badge { background: #e2e8f0; color: #475569; padding:
+    .count-badge { background: #e2e8f0; color: #475569; padding: 2px 10px; border-radius: 12px; font-size: 0.85rem; font-weight: 700; }
+
+    .search-box {
+      width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1;
+      border-radius: 10px; outline: none; font-size: 0.9rem; margin-bottom: 12px; background: #f8fafc;
+    }
+
+    .home-district-select {
+      width: 100%; padding: 8px 10px; border: 1px dashed var(--gold-accent);
+      border-radius: 8px; outline: none; font-size: 0.85rem; margin-bottom: 12px; background: #fffbe0;
+      color: #78350f; font-weight: 600; cursor: pointer;
+    }
+
+    .divisions-scroll { overflow-y: auto; padding-right: 5px; flex: 1; }
+    .division-block { margin-bottom: 16px; }
+    .division-header { 
+      font-size: 0.85rem; font-weight: 700; color: var(--text-muted); 
+      margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;
+      display: flex; justify-content: space-between;
+    }
+    .district-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .pill-btn {
+      background: var(--pill-bg); color: var(--text-dark); border: none;
+      padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+    }
+    .pill-btn.selected { background: var(--accent-green); color: #ffffff; font-weight: 600; }
+
+    /* Controls Bar */
+    .controls-card {
+      background: #ffffff; border-radius: 16px; padding: 14px 20px; margin-bottom: 15px;
+      display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: space-between;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .theme-selector { display: flex; align-items: center; gap: 10px; }
+    .theme-dot {
+      width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 2px solid #fff;
+      box-shadow: 0 0 0 1px #cbd5e1; transition: transform 0.2s;
+    }
+    .theme-dot:hover { transform: scale(1.15); }
+
+    .user-inputs { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .custom-file-btn, .name-input {
+      padding: 8px 14px; border-radius: 10px; font-size: 0.85rem; border: 1px solid #cbd5e1; outline: none;
+    }
+    .custom-file-btn { background: #f1f5f9; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 600;}
+    .name-input { background: #f8fafc; font-weight: 600; color: #0f172a; }
+    .checkbox-label { font-size: 0.85rem; display: flex; align-items: center; gap: 6px; cursor: pointer; font-weight: 600; }
+
+    /* Map Section Area */
+    .map-section {
+      background: var(--card-bg); border-radius: 16px; padding: 25px;
+      display: flex; flex-direction: column; position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .map-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .map-title-sub { font-size: 0.75rem; color: #64748b; letter-spacing: 0.5px; font-weight: 600; }
+    .map-title-main { font-size: 1.8rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 10px; }
+    .user-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; display: none; border: 2px solid var(--accent-green); }
+    
+    .level-badge-box {
+      display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-top: 6px;
+    }
+    .level-badge {
+      display: inline-flex; align-items: center; gap: 6px; background: #FEF3C7; color: #92400E;
+      padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;
+      border: 1px solid #FDE68A;
+    }
+    .level-review {
+      font-size: 0.78rem; color: #475569; font-weight: 600; margin-top: 2px;
+    }
+
+    .stats-score { font-size: 2.5rem; font-weight: 800; color: var(--accent-green); text-align: right; }
+    .stats-score span { font-size: 1.2rem; color: #64748b; font-weight: 500; }
+
+    #leaflet-map {
+      width: 100%; height: 500px; margin: 15px 0; border-radius: 12px; background: transparent !important;
+    }
+
+    .leaflet-container { background: transparent !important; }
+    .leaflet-control-attribution, .leaflet-control-zoom { display: none !important; }
+
+    .district-label-tooltip {
+      background: rgba(255, 255, 255, 0.95); border: 1px solid #cbd5e1;
+      border-radius: 4px; padding: 1px 5px; font-weight: 800; font-size: 10px;
+      color: #0f172a; box-shadow: 0 2px 4px rgba(0,0,0,0.1); pointer-events: none;
+    }
+    .district-label-tooltip::before { display: none; }
+
+    .progress-section { margin-top: 5px; }
+    .progress-bar-bg { width: 100%; height: 10px; background: #e2e0d8; border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .progress-bar-fill { height: 100%; background: var(--accent-green); width: 0%; transition: width 0.4s ease; }
+    
+    .progress-info { display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 700; color: #1e293b; }
+    .progress-subtext { font-size: 0.8rem; color: #64748b; font-weight: 600; }
+
+    .slogan-box { margin-top: 15px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .slogan-text-sub { font-size: 0.75rem; color: #64748b; margin-bottom: 2px; }
+    .slogan-text-main { font-size: 1.15rem; font-weight: 700; color: #1e293b; }
+
+    .social-btn {
+      width: 38px; height: 38px; background: #1e293b; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 1.2rem;
+    }
+
+    .brand-footer {
+      border-top: 1px solid #cbd5e1; margin-top: 18px; padding-top: 12px;
+      display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 700; color: #1e293b;
+    }
+    .brand-logo-icon { width: 18px; height: 18px; background: var(--accent-green); border-radius: 4px; display: inline-block; }
+
+    .download-card { background: #ffffff; border-radius: 16px; padding: 20px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .download-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: #0f172a; }
+    .download-buttons-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    
+    .btn-dl-box {
+      background: #ffffff; border: 1px solid #cbd5e1; padding: 10px; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer; text-align: center; color: #0f172a; transition: all 0.2s;
+    }
+    .btn-dl-box.primary { background: #0f172a; color: #ffffff; border-color: #0f172a; }
+    .btn-dl-box:hover { opacity: 0.9; transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-title">ভ্রমণ করা জেলা চিহ্নিত করুন</span>
+        <span class="count-badge" id="count-badge">০/৬৪</span>
+      </div>
+
+      <input type="text" id="search-input" class="search-box" placeholder="জেলা খুঁজুন...">
+      
+      <select id="home-district-select" class="home-district-select" onchange="setHomeDistrict(this.value)">
+        <option value="">🏠 আপনার নিজের জেলা নির্বাচন করুন...</option>
+      </select>
+
+      <div class="divisions-scroll" id="divisions-list"></div>
+    </div>
+
+    <div>
+      <div class="controls-card">
+        <div class="theme-selector">
+          <div class="theme-dot" style="background:#0d6342;" onclick="setTheme('#0d6342', '#f5f4ee')"></div>
+          <div class="theme-dot" style="background:#1e3a8a;" onclick="setTheme('#1e3a8a', '#edf2f7')"></div>
+          <div class="theme-dot" style="background:#b91c1c;" onclick="setTheme('#b91c1c', '#fdf2f2')"></div>
+          <div class="theme-dot" style="background:#0f172a;" onclick="setTheme('#0f172a', '#f1f5f9')"></div>
+        </div>
+
+        <div class="user-inputs">
+          <label class="custom-file-btn">
+            📷 আপনার ছবি যোগ করুন
+            <input type="file" id="avatar-input" accept="image/*" style="display:none;" onchange="loadAvatar(event)">
+          </label>
+          <input type="text" id="user-name-input" class="name-input" placeholder="আপনার নাম লিখুন..." oninput="updateName()">
+          <label class="checkbox-label">
+            <input type="checkbox" id="toggle-names" onchange="toggleAllNames()"> জেলার নাম
+          </label>
+        </div>
+      </div>
+
+      <div class="map-section" id="export-card">
+        <div class="map-header">
+          <div>
+            <div class="map-title-sub">BANGLADESH TRAVEL MAP</div>
+            <div class="map-title-main">
+              <img id="display-avatar" class="user-avatar" alt="User">
+              <span id="display-name">আমার বাংলাদেশ</span>
+            </div>
+            
+            <div class="level-badge-box">
+              <div class="level-badge" id="level-badge">🌱 শিক্ষানবিশ ভ্রমণকারী</div>
+              <div class="level-review" id="level-review">ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।</div>
+            </div>
+          </div>
+          <div class="stats-score" id="stats-score">০<span>/৬৪</span></div>
+        </div>
+
+        <div id="leaflet-map"></div>
+
+        <div class="progress-section">
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+          <div class="progress-info">
+            <span id="percentage-text">০% বাংলাদেশ ঘোরা হয়েছে</span>
+            <span class="progress-subtext" id="div-stats-text">০টি জেলা · ৮টির মধ্যে ০টি বিভাগ</span>
+          </div>
+        </div>
+
+        <div class="slogan-box">
+          <div>
+            <div class="slogan-text-sub">মানচিত্র পূরণ করতে</div>
+            <div class="slogan-text-main">ঘুরতে থাকুন My Tour Bangladesh এর সাথে</div>
+          </div>
+          <a class="social-btn">🇧🇩</a>
+        </div>
+
+        <div class="brand-footer">
+          <span class="brand-logo-icon"></span>
+          <span>My Tour Bangladesh</span>
+          <span style="color:#94a3b8; font-weight: normal;">· Developer by Said Hasan</span>
+        </div>
+      </div>
+
+      <div class="download-card">
+        <h4>আপনার ম্যাপ ডাউনলোড করুন</h4>
+        <div class="download-buttons-grid">
+          <button class="btn-dl-box primary" onclick="downloadMap('png')">↓ PNG</button>
+          <button class="btn-dl-box" onclick="downloadMap('jpg')">↓ JPG</button>
+          <button class="btn-dl-box" onclick="downloadMap('pdf')">↓ PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const divisionsMap = {
+      "Rangpur": ["Panchagarh", "Thakurgaon", "Dinajpur", "Nilphamari", "Lalmonirhat", "Rangpur", "Kurigram", "Gaibandha"],
+      "Rajshahi": ["Joypurhat", "Bogura", "Naogaon", "Natore", "Nawabganj", "Rajshahi", "Sirajganj", "Pabna"],
+      "Mymensingh": ["Jamalpur", "Sherpur", "Mymensingh", "Netrokona"],
+      "Sylhet": ["Sunamganj", "Sylhet", "Moulvibazar", "Habiganj"],
+      "Dhaka": ["Tangail", "Kishoreganj", "Manikganj", "Dhaka", "Gazipur", "Narsingdi", "Narayanganj", "Munshiganj", "Faridpur", "Rajbari", "Gopalganj", "Madaripur", "Shariatpur"],
+      "Khulna": ["Kushtia", "Meherpur", "Chuadanga", "Jhenaidah", "Magura", "Narail", "Jessore", "Satkhira", "Khulna", "Bagerhat"],
+      "Barisal": ["Pirojpur", "Jhalokati", "Barisal", "Bhola", "Barguna", "Patuakhali"],
+      "Chittagong": ["Brahmanbaria", "Comilla", "Chandpur", "Lakshmipur", "Noakhali", "Feni", "Khagrachhari", "Rangamati", "Chittagong", "Bandarban", "Cox's Bazar"]
+    };
+
+    const bnNames = {
+      "Panchagarh": "পঞ্চগড়", "Thakurgaon": "ঠাকুরগাঁও", "Dinajpur": "দিনাজপুর", "Nilphamari": "নীলফামারী", "Lalmonirhat": "লালমনিরহাট", "Rangpur": "রংপুর", "Kurigram": "কুড়িগ্রাম", "Gaibandha": "গাইবান্ধা",
+      "Joypurhat": "জয়পুরহাট", "Bogura": "বগুড়া", "Naogaon": "নওগাঁ", "Natore": "নাটোর", "Nawabganj": "চাঁপাইনবাবগঞ্জ", "Rajshahi": "রাজশাহী", "Sirajganj": "সিরাজগঞ্জ", "Pabna": "পাবনা",
+      "Jamalpur": "জামালপুর", "Sherpur": "শেরপুর", "Mymensingh": "ময়মনসিংহ", "Netrokona": "নেত্রকোণা",
+      "Sunamganj": "সুনামগঞ্জ", "Sylhet": "সিলেট", "Moulvibazar": "মৌলভীবাজার", "Habiganj": "হবিগঞ্জ",
+      "Tangail": "টাঙ্গাইল", "Kishoreganj": "কিশোরগঞ্জ", "Manikganj": "মানিকগঞ্জ", "Dhaka": "ঢাকা", "Gazipur": "গাজীপুর", "Narsingdi": "নরসিংদী", "Narayanganj": "নারায়ণগঞ্জ", "Munshiganj": "মুন্সীগঞ্জ", "Faridpur": "ফরিদপুর", "Rajbari": "রাজবাড়ী", "Gopalganj": "গোপালগঞ্জ", "Madaripur": "মাদারীপুর", "Shariatpur": "শরীয়তপুর",
+      "Kushtia": "কুষ্টিয়া", "Meherpur": "মেহেরপুর", "Chuadanga": "চুয়াডাঙ্গা", "Jhenaidah": "ঝিনাইদহ", "Magura": "মাগুরা", "Narail": "নড়াইল", "Jessore": "যশোর", "Satkhira": "সাতক্ষীরা", "Khulna": "খুলনা", "Bagerhat": "বাগেরহাট",
+      "Pirojpur": "পিরোজপুর", "Jhalokati": "ঝালকাঠি", "Barisal": "বরিশাল", "Bhola": "ভোলা", "Barguna": "বরগুনা", "Patuakhali": "পটুয়াখালী",
+      "Brahmanbaria": "ব্রাহ্মণবাড়িয়া", "Comilla": "কুমিল্লা", "Chandpur": "চাঁদপুর", "Lakshmipur": "লক্ষ্মীপুর", "Noakhali": "নোয়াখালী", "Feni": "ফেনী", "Khagrachhari": "খাগড়াছড়ি", "Rangamati": "রাঙামাটি", "Chittagong": "চট্টগ্রাম", "Bandarban": "বান্দরবান", "Cox's Bazar": "কক্সবাজার"
+    };
+
+    function toBanglaNum(num) {
+      const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return num.toString().replace(/\d/g, d => bnNums[d]);
+    }
+
+    let map;
+    let geojsonLayer;
+    let selectedDistricts = new Set();
+    let districtLayers = {};
+    let homeDistrict = "";
+
+    function styleDistrict(feature) {
+      const name = feature.properties.NAME_2 || feature.properties.district || feature.properties.ADM2_EN;
+      const isSelected = selectedDistricts.has(name);
+      const isHome = (name === homeDistrict);
+      const activeColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-green').trim();
+
+      return {
+        fillColor: isHome ? '#f59e0b' : (isSelected ? activeColor : '#e6e4da'),
+        weight: isHome ? 2 : 1.2,
+        opacity: 1,
+        color: '#ffffff',
+        fillOpacity: isSelected || isHome ? 1.0 : 0.95
+      };
+    }
+
+    function initMap() {
+      map = L.map('leaflet-map', {
+        center: [23.6850, 90.3563],
+        zoom: 7,
+        zoomControl: false,
+        dragging: true,
+        scrollWheelZoom: false,
+        doubleClickZoom: false
+      });
+
+      const geoJsonUrls = [
+        'https://raw.githubusercontent.com/fahimreza-dev/bangladesh-geojson/master/bd-districts.json',
+        'https://cdn.jsdelivr.net/gh/fahimreza-dev/bangladesh-geojson@master/bd-districts.json'
+      ];
+
+      function fetchGeoJSON(index) {
+        if (index >= geoJsonUrls.length) return;
+        fetch(geoJsonUrls[index])
+          .then(res => res.json())
+          .then(data => {
+            geojsonLayer = L.geoJSON(data, {
+              style: styleDistrict,
+              onEachFeature: onEachDistrictFeature
+            }).addTo(map);
+
+            map.fitBounds(geojsonLayer.getBounds(), { padding: [10, 10] });
+          })
+          .catch(() => fetchGeoJSON(index + 1));
+      }
+
+      fetchGeoJSON(0);
+
+      buildSidebar();
+      populateHomeDistrictDropdown();
+    }
+
+    function onEachDistrictFeature(feature, layer) {
+      const distName = feature.properties.NAME_2 || feature.properties.district || feature.properties.ADM2_EN;
+      if (!distName) return;
+
+      districtLayers[distName] = layer;
+      const bnName = bnNames[distName] || distName;
+
+      layer.bindTooltip(bnName, {
+        permanent: false,
+        direction: 'center',
+        className: 'district-label-tooltip'
+      });
+
+      layer.on('click', () => {
+        toggleDistrict(distName);
+      });
+    }
+
+    function populateHomeDistrictDropdown() {
+      const select = document.getElementById('home-district-select');
+      Object.keys(bnNames).sort().forEach(dist => {
+        const opt = document.createElement('option');
+        opt.value = dist;
+        opt.innerText = `🏠 ${bnNames[dist]}`;
+        select.appendChild(opt);
+      });
+    }
+
+    function setHomeDistrict(distName) {
+      homeDistrict = distName;
+      if (distName) selectedDistricts.add(distName);
+      updateUI();
+    }
+
+    function buildSidebar() {
+      const divisionsListEl = document.getElementById('divisions-list');
+      divisionsListEl.innerHTML = '';
+
+      const divBnNames = {
+        "Rangpur": "রংপুর বিভাগ", "Rajshahi": "রাজশাহী বিভাগ", "Mymensingh": "ময়মনসিংহ বিভাগ",
+        "Sylhet": "সিলেট বিভাগ", "Dhaka": "ঢাকা বিভাগ", "Khulna": "খুলনা বিভাগ",
+        "Barisal": "বরিশাল বিভাগ", "Chittagong": "চট্টগ্রাম বিভাগ"
+      };
+
+      Object.keys(divisionsMap).forEach(divKey => {
+        const divBlock = document.createElement('div');
+        divBlock.className = 'division-block';
+
+        const divHeader = document.createElement('div');
+        divHeader.className = 'division-header';
+        divHeader.innerHTML = `<span>${divBnNames[divKey]}</span><span id="div-badge-${divKey}" style="font-size:0.75rem; color:#0d6342;">০/${divisionsMap[divKey].length}</span>`;
+
+        const pillsContainer = document.createElement('div');
+        pillsContainer.className = 'district-pills';
+
+        divisionsMap[divKey].forEach(distName => {
+          const pill = document.createElement('button');
+          pill.className = 'pill-btn';
+          pill.setAttribute('id', `pill-${distName.replace(/\s+/g, '')}`);
+          pill.innerText = bnNames[distName] || distName;
+          pill.onclick = () => toggleDistrict(distName);
+          pillsContainer.appendChild(pill);
+        });
+
+        divBlock.appendChild(divHeader);
+        divBlock.appendChild(pillsContainer);
+        divisionsListEl.appendChild(divBlock);
+      });
+    }
+
+    function toggleDistrict(distName) {
+      if (selectedDistricts.has(distName)) {
+        if(distName === homeDistrict) homeDistrict = "";
+        selectedDistricts.delete(distName);
+      } else {
+        selectedDistricts.add(distName);
+      }
+      updateUI();
+    }
+
+    function updateUI() {
+      if (geojsonLayer) {
+        geojsonLayer.setStyle(styleDistrict);
+      }
+
+      Object.keys(divisionsMap).forEach(divKey => {
+        let divCount = 0;
+        divisionsMap[divKey].forEach(d => {
+          if (selectedDistricts.has(d)) divCount++;
+        });
+        const badge = document.getElementById(`div-badge-${divKey}`);
+        if(badge) badge.innerText = `${toBanglaNum(divCount)}/${toBanglaNum(divisionsMap[divKey].length)}`;
+      });
+
+      Object.keys(bnNames).forEach(distName => {
+        const pill = document.getElementById(`pill-${distName.replace(/\s+/g, '')}`);
+        const isSelected = selectedDistricts.has(distName);
+        const isHome = (distName === homeDistrict);
+
+        if (pill) {
+          if (isSelected) pill.classList.add('selected');
+          else pill.classList.remove('selected');
+        }
+
+        const layer = districtLayers[distName];
+        if (layer) {
+          const showAll = document.getElementById('toggle-names').checked;
+          let labelText = bnNames[distName] || distName;
+          if(isHome) labelText += " ⭐";
+
+          layer.setTooltipContent(labelText);
+
+          if (showAll || isSelected || isHome) {
+            layer.openTooltip();
+          } else {
+            layer.closeTooltip();
+          }
+        }
+      });
+
+      const count = selectedDistricts.size;
+      const percentage = Math.round((count / 64) * 100);
+
+      const levelBadgeEl = document.getElementById('level-badge');
+      const levelReviewEl = document.getElementById('level-review');
+
+      if (count <= 20) {
+        levelBadgeEl.innerHTML = "🌱 শিক্ষানবিশ ভ্রমণকারী";
+        levelReviewEl.innerHTML = "ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।";
+      } else if (count <= 45) {
+        levelBadgeEl.innerHTML = "🎒 অভিজ্ঞ ভ্রমণকারী";
+        levelReviewEl.innerHTML = "দারুণ অগ্রগতি! আপনি বাংলাদেশের রূপ-বৈচিত্র্যের এক সুন্দর অভিজ্ঞ পর্যটক।";
+      } else {
+        levelBadgeEl.innerHTML = "🏆 বাংলাদেশ জয়ী";
+        levelReviewEl.innerHTML = "অসাধারণ কীর্তি! পুরো বাংলাদেশ ভ্রমণের এক অনন্য ও অনুপ্রেরণাদায়ী রেকর্ড আপনার।";
+      }
+
+      const activeDivisions = new Set();
+      Object.keys(divisionsMap).forEach(div => {
+        divisionsMap[div].forEach(d => {
+          if (selectedDistricts.has(d)) activeDivisions.add(div);
+        });
+      });
+
+      document.getElementById('count-badge').innerText = `${toBanglaNum(count)}/৬৪`;
+      document.getElementById('stats-score').innerHTML = `${toBanglaNum(count)}<span>/৬৪</span>`;
+      document.getElementById('progress-fill').style.width = `${percentage}%`;
+      document.getElementById('percentage-text').innerText = `${toBanglaNum(percentage)}% বাংলাদেশ ঘোরা হয়েছে`;
+      document.getElementById('div-stats-text').innerText = `${toBanglaNum(count)}টি জেলা · ৮টির মধ্যে ${toBanglaNum(activeDivisions.size)}টি বিভাগ`;
+    }
+
+    function setTheme(accentColor, cardBgColor) {
+      document.documentElement.style.setProperty('--accent-green', accentColor);
+      document.documentElement.style.setProperty('--card-bg', cardBgColor);
+      updateUI();
+    }
+
+    function updateName() {
+      const val = document.getElementById('user-name-input').value.trim();
+      document.getElementById('display-name').innerText = val ? `${val}-এর বাংলাদেশ` : 'আমার বাংলাদেশ';
+    }
+
+    function loadAvatar(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const imgEl = document.getElementById('display-avatar');
+        imgEl.src = URL.createObjectURL(file);
+        imgEl.style.display = 'inline-block';
+      }
+    }
+
+    function toggleAllNames() {
+      updateUI();
+    }
+
+    function downloadMap(format) {
+      const card = document.getElementById('export-card');
+
+      html2canvas(card, { useCORS: true, scale: 3 }).then(canvas => {
+        if (format === 'png') {
+          const link = document.createElement('a');
+          link.download = 'My-Tour-Bangladesh.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        } else if (format === 'jpg') {
+          const link = document.createElement('a');
+          link.download = 'My-Tour-Bangladesh.jpg';
+          link.href = canvas.toDataURL('image/jpeg', 0.95);
+          link.click();
+        } else if (format === 'pdf') {
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const imgData = canvas.toDataURL('image/png');
+          const imgWidth = 190;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+          pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+          pdf.save('My-Tour-Bangladesh.pdf');
+        }
+      });
+    }
+
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      const q = e.target.value.trim().toLowerCase();
+      document.querySelectorAll('.pill-btn').forEach(btn => {
+        btn.style.display = btn.innerText.toLowerCase().includes(q) ? 'inline-block' : 'none';
+      });
+    });
+
+    window.onload = initMap;
+  </script>
+</body>
+</html>

@@ -16,7 +16,7 @@
   <style>
     :root {
       --bg-dark: #0f172a;
-      --card-bg: #f8fafc;
+      --card-bg: #ffffff;
       --accent-green: #0d6342;
       --pill-bg: #e2e8f0;
       --text-dark: #1e293b;
@@ -120,20 +120,27 @@
     .map-title-main { font-size: 1.8rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 10px; }
     .user-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; display: none; border: 2px solid var(--accent-green); }
     
+    /* Level Badge Component */
+    .level-badge-box {
+      display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-top: 6px;
+    }
     .level-badge {
       display: inline-flex; align-items: center; gap: 6px; background: #FEF3C7; color: #92400E;
-      padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-top: 4px;
+      padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;
       border: 1px solid #FDE68A;
+    }
+    .level-review {
+      font-size: 0.78rem; color: #475569; font-weight: 600; margin-top: 2px;
     }
 
     .stats-score { font-size: 2.5rem; font-weight: 800; color: var(--accent-green); text-align: right; }
     .stats-score span { font-size: 1.2rem; color: #64748b; font-weight: 500; }
 
     #leaflet-map {
-      width: 100%; height: 480px; margin: 15px 0; border-radius: 12px; background: transparent;
+      width: 100%; height: 480px; margin: 15px 0; border-radius: 12px; background: #ffffff !important;
     }
 
-    .leaflet-container { background: transparent !important; }
+    .leaflet-container { background: #ffffff !important; }
     .leaflet-control-attribution, .leaflet-control-zoom { display: none !important; }
 
     .district-label-tooltip {
@@ -200,10 +207,10 @@
     <div>
       <div class="controls-card">
         <div class="theme-selector">
-          <div class="theme-dot" style="background:#0d6342;" onclick="setTheme('#0d6342', '#f8fafc')"></div>
-          <div class="theme-dot" style="background:#1e3a8a;" onclick="setTheme('#1e3a8a', '#f8fafc')"></div>
-          <div class="theme-dot" style="background:#b91c1c;" onclick="setTheme('#b91c1c', '#fff5f5')"></div>
-          <div class="theme-dot" style="background:#0f172a;" onclick="setTheme('#0f172a', '#f1f5f9')"></div>
+          <div class="theme-dot" style="background:#0d6342;" onclick="setTheme('#0d6342', '#ffffff')"></div>
+          <div class="theme-dot" style="background:#1e3a8a;" onclick="setTheme('#1e3a8a', '#ffffff')"></div>
+          <div class="theme-dot" style="background:#b91c1c;" onclick="setTheme('#b91c1c', '#ffffff')"></div>
+          <div class="theme-dot" style="background:#0f172a;" onclick="setTheme('#0f172a', '#ffffff')"></div>
         </div>
 
         <div class="user-inputs">
@@ -226,7 +233,12 @@
               <img id="display-avatar" class="user-avatar" alt="User">
               <span id="display-name">আমার বাংলাদেশ</span>
             </div>
-            <div class="level-badge" id="level-badge">🌱 Beginner Traveler</div>
+            
+            <!-- Dynamic 3 Categories Level Badge & Review -->
+            <div class="level-badge-box">
+              <div class="level-badge" id="level-badge">🌱 শিক্ষানবিশ ভ্রমণকারী</div>
+              <div class="level-review" id="level-review">ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।</div>
+            </div>
           </div>
           <div class="stats-score" id="stats-score">০<span>/৬৪</span></div>
         </div>
@@ -323,24 +335,18 @@
         doubleClickZoom: false
       });
 
-      // Free OpenStreetMap Base Layer (No API key needed)
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-
-      // Create Markers for 64 Districts
+      // Create Markers for 64 Districts (Fully Solid Filled Circle)
       Object.keys(districtCoords).forEach(distName => {
         const coords = districtCoords[distName];
         const bnName = bnNames[distName] || distName;
 
         const circleMarker = L.circleMarker(coords, {
-          radius: 8,
-          fillColor: '#cbd5e1',
+          radius: 9,
+          fillColor: '#94a3b8',
           color: '#ffffff',
-          weight: 2,
+          weight: 1.5,
           opacity: 1,
-          fillOpacity: 0.9
+          fillOpacity: 1.0 /* 100% Full Solid Fill */
         }).addTo(map);
 
         circleMarker.bindTooltip(bnName, {
@@ -447,11 +453,11 @@
         const marker = districtMarkers[distName];
         if (marker) {
           if (isHome) {
-            marker.setStyle({ fillColor: '#f59e0b', radius: 12, color: '#78350f', weight: 3 });
+            marker.setStyle({ fillColor: '#f59e0b', radius: 12, color: '#78350f', weight: 2, fillOpacity: 1.0 });
           } else if (isSelected) {
-            marker.setStyle({ fillColor: activeThemeColor, radius: 10, color: '#ffffff', weight: 2 });
+            marker.setStyle({ fillColor: activeThemeColor, radius: 10, color: '#ffffff', weight: 2, fillOpacity: 1.0 });
           } else {
-            marker.setStyle({ fillColor: '#cbd5e1', radius: 7, color: '#ffffff', weight: 1.5 });
+            marker.setStyle({ fillColor: '#cbd5e1', radius: 8, color: '#ffffff', weight: 1.5, fillOpacity: 1.0 });
           }
 
           const showAll = document.getElementById('toggle-names').checked;
@@ -471,13 +477,20 @@
       const count = selectedDistricts.size;
       const percentage = Math.round((count / 64) * 100);
 
+      /* 3-Category Bengali Level Badge & Review Evaluation */
       const levelBadgeEl = document.getElementById('level-badge');
-      if (count === 0) levelBadgeEl.innerHTML = "🌱 Beginner Traveler";
-      else if (count <= 10) levelBadgeEl.innerHTML = "🧭 Rookie Explorer";
-      else if (count <= 25) levelBadgeEl.innerHTML = "🎒 Pro Traveler";
-      else if (count <= 45) levelBadgeEl.innerHTML = "👑 Legendary Explorer";
-      else if (count < 64) levelBadgeEl.innerHTML = "🏆 Extreme Wanderer";
-      else levelBadgeEl.innerHTML = "🔥 Bangladesh Conqueror!";
+      const levelReviewEl = document.getElementById('level-review');
+
+      if (count <= 20) {
+        levelBadgeEl.innerHTML = "🌱 শিক্ষানবিশ ভ্রমণকারী";
+        levelReviewEl.innerHTML = "ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।";
+      } else if (count <= 45) {
+        levelBadgeEl.innerHTML = "🎒 অভিজ্ঞ ভ্রমণকারী";
+        levelReviewEl.innerHTML = "দারুণ অগ্রগতি! আপনি বাংলাদেশের রূপ-বৈচিত্র্যের এক সুন্দর অভিজ্ঞ পর্যটক।";
+      } else {
+        levelBadgeEl.innerHTML = "🏆 বাংলাদেশ জয়ী";
+        levelReviewEl.innerHTML = "অসাধারণ কীর্তি! পুরো বাংলাদেশ ভ্রমণের এক অনন্য ও অনুপ্রেরণাদায়ী রেকর্ড আপনার।";
+      }
 
       const activeDivisions = new Set();
       Object.keys(divisionsMap).forEach(div => {

@@ -121,37 +121,38 @@
     .stats-score { font-size: 2.2rem; font-weight: 800; color: var(--accent-green); text-align: right; }
     .stats-score span { font-size: 1.1rem; color: #78716c; font-weight: 500; }
 
-    /* Real Professional Geographic SVG Map Container */
+    /* Connected Professional Geographic SVG Map Container */
     .svg-map-container {
       width: 100%; margin: 15px 0; border-radius: 12px; background: #fdfbf7;
       padding: 5px; display: flex; justify-content: center; align-items: center;
     }
     
     .map-shape-svg {
-      width: 100%; max-width: 480px; height: auto;
+      width: 100%; max-width: 440px; height: auto;
     }
     
     .map-district-shape {
-      fill: #e7e2d7;
+      fill: #e6e0d2;
       stroke: #fdfbf7;
-      stroke-width: 0.8px;
+      stroke-width: 1px;
+      stroke-linejoin: round;
       cursor: pointer;
       transition: all 0.2s ease;
     }
     .map-district-shape:hover {
-      fill: #d6d0c4;
+      fill: #d4cec0;
       stroke: var(--accent-green);
-      stroke-width: 1.2px;
+      stroke-width: 1.5px;
     }
     .map-district-shape.selected {
       fill: var(--accent-green);
       stroke: #fdfbf7;
-      stroke-width: 1.2px;
+      stroke-width: 1.5px;
     }
     .map-district-shape.home-selected {
-      fill: #f59e0b;
+      fill: var(--gold-accent);
       stroke: #78350f;
-      stroke-width: 1.5px;
+      stroke-width: 2px;
     }
 
     .progress-section { margin-top: 5px; }
@@ -227,88 +228,88 @@
           <div class="stats-score" id="stats-score"><span>/৬৪</span></div>
         </div>
 
-        <!-- Real Geographic Connected SVG Map of Bangladesh -->
+        <!-- Connected Professional Geographic SVG Map of Bangladesh -->
         <div class="svg-map-container">
-          <svg class="map-shape-svg" viewBox="0 0 600 750" xmlns="http://www.w3.org/2000/svg">
-            <!-- Rangpur Division (Real Coordinates) -->
-            <path id="shape-Panchagarh" class="map-district-shape" onclick="toggleDistrict('Panchagarh')" d="M190,120 L210,115 L225,130 L205,145 Z"/>
-            <path id="shape-Thakurgaon" class="map-district-shape" onclick="toggleDistrict('Thakurgaon')" d="M175,135 L200,130 L210,155 L180,165 Z"/>
-            <path id="shape-Dinajpur" class="map-district-shape" onclick="toggleDistrict('Dinajpur')" d="M210,135 L245,125 L260,175 L215,190 Z"/>
-            <path id="shape-Nilphamari" class="map-district-shape" onclick="toggleDistrict('Nilphamari')" d="M228,115 L255,110 L262,135 L232,140 Z"/>
-            <path id="shape-Lalmonirhat" class="map-district-shape" onclick="toggleDistrict('Lalmonirhat')" d="M260,110 L290,120 L275,150 L258,138 Z"/>
-            <path id="shape-Rangpur" class="map-district-shape" onclick="toggleDistrict('Rangpur')" d="M245,145 L278,145 L270,185 L235,175 Z"/>
-            <path id="shape-Kurigram" class="map-district-shape" onclick="toggleDistrict('Kurigram')" d="M280,135 L310,150 L295,195 L275,185 Z"/>
-            <path id="shape-Gaibandha" class="map-district-shape" onclick="toggleDistrict('Gaibandha')" d="M245,190 L278,188 L265,220 L230,210 Z"/>
+          <svg class="map-shape-svg" viewBox="0 0 520 620" xmlns="http://www.w3.org/2000/svg">
+            <!-- Rangpur Division -->
+            <path id="shape-Panchagarh" class="map-district-shape" onclick="toggleDistrict('Panchagarh')" d="M195,50 L220,45 L235,65 L210,80 L195,50 Z"/>
+            <path id="shape-Thakurgaon" class="map-district-shape" onclick="toggleDistrict('Thakurgaon')" d="M175,70 L195,50 L210,80 L185,95 L175,70 Z"/>
+            <path id="shape-Dinajpur" class="map-district-shape" onclick="toggleDistrict('Dinajpur')" d="M210,80 L235,65 L260,100 L245,135 L215,120 Z"/>
+            <path id="shape-Nilphamari" class="map-district-shape" onclick="toggleDistrict('Nilphamari')" d="M235,65 L265,60 L275,85 L245,95 L235,65 Z"/>
+            <path id="shape-Lalmonirhat" class="map-district-shape" onclick="toggleDistrict('Lalmonirhat')" d="M265,60 L295,70 L285,100 L260,90 L265,60 Z"/>
+            <path id="shape-Rangpur" class="map-district-shape" onclick="toggleDistrict('Rangpur')" d="M245,95 L275,85 L285,125 L255,135 Z"/>
+            <path id="shape-Kurigram" class="map-district-shape" onclick="toggleDistrict('Kurigram')" d="M285,85 L315,95 L305,140 L285,125 Z"/>
+            <path id="shape-Gaibandha" class="map-district-shape" onclick="toggleDistrict('Gaibandha')" d="M255,135 L285,125 L275,160 L245,150 Z"/>
 
             <!-- Rajshahi Division -->
-            <path id="shape-Joypurhat" class="map-district-shape" onclick="toggleDistrict('Joypurhat')" d="M232,220 L260,218 L255,242 L225,238 Z"/>
-            <path id="shape-Bogura" class="map-district-shape" onclick="toggleDistrict('Bogura')" d="M265,222 L300,218 L290,265 L258,258 Z"/>
-            <path id="shape-Naogaon" class="map-district-shape" onclick="toggleDistrict('Naogaon')" d="M195,195 L230,192 L235,240 L190,235 Z"/>
-            <path id="shape-Natore" class="map-district-shape" onclick="toggleDistrict('Natore')" d="M255,260 L285,255 L280,285 L250,280 Z"/>
-            <path id="shape-Nawabganj" class="map-district-shape" onclick="toggleDistrict('Nawabganj')" d="M165,235 L195,232 L190,275 L160,265 Z"/>
-            <path id="shape-Rajshahi" class="map-district-shape" onclick="toggleDistrict('Rajshahi')" d="M195,240 L235,238 L228,278 L190,275 Z"/>
-            <path id="shape-Sirajganj" class="map-district-shape" onclick="toggleDistrict('Sirajganj')" d="M292,250 L325,245 L315,295 L285,288 Z"/>
-            <path id="shape-Pabna" class="map-district-shape" onclick="toggleDistrict('Pabna')" d="M252,288 L290,285 L280,320 L245,312 Z"/>
+            <path id="shape-Joypurhat" class="map-district-shape" onclick="toggleDistrict('Joypurhat')" d="M245,150 L275,160 L265,180 L235,170 Z"/>
+            <path id="shape-Bogura" class="map-district-shape" onclick="toggleDistrict('Bogura')" d="M275,160 L310,155 L300,200 L265,190 Z"/>
+            <path id="shape-Naogaon" class="map-district-shape" onclick="toggleDistrict('Naogaon')" d="M215,135 L245,135 L235,180 L205,170 Z"/>
+            <path id="shape-Natore" class="map-district-shape" onclick="toggleDistrict('Natore')" d="M265,190 L300,185 L290,215 L255,210 Z"/>
+            <path id="shape-Nawabganj" class="map-district-shape" onclick="toggleDistrict('Nawabganj')" d="M175,170 L205,170 L195,210 L165,200 Z"/>
+            <path id="shape-Rajshahi" class="map-district-shape" onclick="toggleDistrict('Rajshahi')" d="M205,170 L235,170 L225,210 L195,210 Z"/>
+            <path id="shape-Sirajganj" class="map-district-shape" onclick="toggleDistrict('Sirajganj')" d="M300,185 L335,180 L325,225 L290,215 Z"/>
+            <path id="shape-Pabna" class="map-district-shape" onclick="toggleDistrict('Pabna')" d="M255,210 L290,215 L280,250 L245,240 Z"/>
 
             <!-- Mymensingh Division -->
-            <path id="shape-Jamalpur" class="map-district-shape" onclick="toggleDistrict('Jamalpur')" d="M305,185 L338,180 L325,225 L292,215 Z"/>
-            <path id="shape-Sherpur" class="map-district-shape" onclick="toggleDistrict('Sherpur')" d="M340,175 L372,180 L358,215 L328,210 Z"/>
-            <path id="shape-Mymensingh" class="map-district-shape" onclick="toggleDistrict('Mymensingh')" d="M335,220 L385,215 L370,262 L320,255 Z"/>
-            <path id="shape-Netrokona" class="map-district-shape" onclick="toggleDistrict('Netrokona')" d="M375,185 L420,192 L405,238 L360,230 Z"/>
+            <path id="shape-Jamalpur" class="map-district-shape" onclick="toggleDistrict('Jamalpur')" d="M315,120 L350,115 L335,160 L305,150 Z"/>
+            <path id="shape-Sherpur" class="map-district-shape" onclick="toggleDistrict('Sherpur')" d="M350,115 L385,120 L370,155 L335,150 Z"/>
+            <path id="shape-Mymensingh" class="map-district-shape" onclick="toggleDistrict('Mymensingh')" d="M335,160 L385,155 L370,200 L325,190 Z"/>
+            <path id="shape-Netrokona" class="map-district-shape" onclick="toggleDistrict('Netrokona')" d="M385,120 L430,125 L415,170 L370,165 Z"/>
 
             <!-- Sylhet Division -->
-            <path id="shape-Sunamganj" class="map-district-shape" onclick="toggleDistrict('Sunamganj')" d="M425,195 L475,190 L465,238 L412,235 Z"/>
-            <path id="shape-Sylhet" class="map-district-shape" onclick="toggleDistrict('Sylhet')" d="M480,195 L535,202 L518,255 L470,248 Z"/>
-            <path id="shape-Moulvibazar" class="map-district-shape" onclick="toggleDistrict('Moulvibazar')" d="M475,258 L525,255 L510,305 L460,298 Z"/>
-            <path id="shape-Habiganj" class="map-district-shape" onclick="toggleDistrict('Habiganj')" d="M418,242 L468,240 L455,290 L405,282 Z"/>
+            <path id="shape-Sunamganj" class="map-district-shape" onclick="toggleDistrict('Sunamganj')" d="M430,130 L480,125 L470,170 L420,165 Z"/>
+            <path id="shape-Sylhet" class="map-district-shape" onclick="toggleDistrict('Sylhet')" d="M480,125 L530,135 L515,185 L465,175 Z"/>
+            <path id="shape-Moulvibazar" class="map-district-shape" onclick="toggleDistrict('Moulvibazar')" d="M465,185 L515,180 L500,225 L450,220 Z"/>
+            <path id="shape-Habiganj" class="map-district-shape" onclick="toggleDistrict('Habiganj')" d="M420,175 L470,170 L455,215 L405,210 Z"/>
 
             <!-- Dhaka Division -->
-            <path id="shape-Tangail" class="map-district-shape" onclick="toggleDistrict('Tangail')" d="M300,258 L335,255 L322,310 L288,302 Z"/>
-            <path id="shape-Kishoreganj" class="map-district-shape" onclick="toggleDistrict('Kishoreganj')" d="M378,242 L422,238 L410,298 L365,290 Z"/>
-            <path id="shape-Manikganj" class="map-district-shape" onclick="toggleDistrict('Manikganj')" d="M292,315 L325,312 L315,340 L282,335 Z"/>
-            <path id="shape-Dhaka" class="map-district-shape" onclick="toggleDistrict('Dhaka')" d="M330,312 L368,308 L355,348 L320,342 Z"/>
-            <path id="shape-Gazipur" class="map-district-shape" onclick="toggleDistrict('Gazipur')" d="M332,282 L365,280 L358,312 L325,310 Z"/>
-            <path id="shape-Narsingdi" class="map-district-shape" onclick="toggleDistrict('Narsingdi')" d="M372,298 L405,295 L395,335 L362,330 Z"/>
-            <path id="shape-Narayanganj" class="map-district-shape" onclick="toggleDistrict('Narayanganj')" d="M358,352 L388,350 L380,378 L350,372 Z"/>
-            <path id="shape-Munshiganj" class="map-district-shape" onclick="toggleDistrict('Munshiganj')" d="M328,348 L355,345 L348,372 L320,368 Z"/>
-            <path id="shape-Faridpur" class="map-district-shape" onclick="toggleDistrict('Faridpur')" d="M285,342 L320,338 L310,385 L275,378 Z"/>
-            <path id="shape-Rajbari" class="map-district-shape" onclick="toggleDistrict('Rajbari')" d="M250,322 L285,318 L275,352 L242,345 Z"/>
-            <path id="shape-Gopalganj" class="map-district-shape" onclick="toggleDistrict('Gopalganj')" d="M282,392 L315,388 L302,438 L268,430 Z"/>
-            <path id="shape-Madaripur" class="map-district-shape" onclick="toggleDistrict('Madaripur')" d="M325,378 L355,375 L345,412 L315,405 Z"/>
-            <path id="shape-Shariatpur" class="map-district-shape" onclick="toggleDistrict('Shariatpur')" d="M358,378 L388,375 L378,410 L348,405 Z"/>
+            <path id="shape-Tangail" class="map-district-shape" onclick="toggleDistrict('Tangail')" d="M305,190 L340,185 L330,235 L295,225 Z"/>
+            <path id="shape-Kishoreganj" class="map-district-shape" onclick="toggleDistrict('Kishoreganj')" d="M385,175 L430,170 L415,225 L370,220 Z"/>
+            <path id="shape-Manikganj" class="map-district-shape" onclick="toggleDistrict('Manikganj')" d="M295,235 L330,230 L320,260 L285,255 Z"/>
+            <path id="shape-Dhaka" class="map-district-shape" onclick="toggleDistrict('Dhaka')" d="M330,230 L370,225 L360,265 L320,260 Z"/>
+            <path id="shape-Gazipur" class="map-district-shape" onclick="toggleDistrict('Gazipur')" d="M335,195 L370,190 L360,230 L325,225 Z"/>
+            <path id="shape-Narsingdi" class="map-district-shape" onclick="toggleDistrict('Narsingdi')" d="M370,225 L410,220 L400,260 L360,255 Z"/>
+            <path id="shape-Narayanganj" class="map-district-shape" onclick="toggleDistrict('Narayanganj')" d="M360,265 L395,260 L385,290 L350,285 Z"/>
+            <path id="shape-Munshiganj" class="map-district-shape" onclick="toggleDistrict('Munshiganj')" d="M325,260 L360,255 L350,290 L315,285 Z"/>
+            <path id="shape-Faridpur" class="map-district-shape" onclick="toggleDistrict('Faridpur')" d="M280,260 L315,255 L305,300 L270,295 Z"/>
+            <path id="shape-Rajbari" class="map-district-shape" onclick="toggleDistrict('Rajbari')" d="M245,240 L280,235 L270,270 L235,265 Z"/>
+            <path id="shape-Gopalganj" class="map-district-shape" onclick="toggleDistrict('Gopalganj')" d="M275,310 L310,305 L300,350 L265,345 Z"/>
+            <path id="shape-Madaripur" class="map-district-shape" onclick="toggleDistrict('Madaripur')" d="M320,295 L355,290 L345,330 L310,325 Z"/>
+            <path id="shape-Shariatpur" class="map-district-shape" onclick="toggleDistrict('Shariatpur')" d="M355,295 L390,290 L380,325 L345,320 Z"/>
 
             <!-- Khulna Division -->
-            <path id="shape-Kushtia" class="map-district-shape" onclick="toggleDistrict('Kushtia')" d="M205,315 L242,312 L232,350 L198,342 Z"/>
-            <path id="shape-Meherpur" class="map-district-shape" onclick="toggleDistrict('Meherpur')" d="M172,305 L202,302 L195,335 L165,328 Z"/>
-            <path id="shape-Chuadanga" class="map-district-shape" onclick="toggleDistrict('Chuadanga')" d="M182,342 L212,338 L202,372 L172,365 Z"/>
-            <path id="shape-Jhenaidah" class="map-district-shape" onclick="toggleDistrict('Jhenaidah')" d="M218,352 L250,348 L240,388 L208,382 Z"/>
-            <path id="shape-Magura" class="map-district-shape" onclick="toggleDistrict('Magura')" d="M255,355 L285,352 L275,392 L245,385 Z"/>
-            <path id="shape-Narail" class="map-district-shape" onclick="toggleDistrict('Narail')" d="M252,398 L282,395 L272,428 L242,422 Z"/>
-            <path id="shape-Jessore" class="map-district-shape" onclick="toggleDistrict('Jessore')" d="M205,388 L240,385 L230,425 L195,418 Z"/>
-            <path id="shape-Satkhira" class="map-district-shape" onclick="toggleDistrict('Satkhira')" d="M175,425 L210,420 L195,495 L160,482 Z"/>
-            <path id="shape-Khulna" class="map-district-shape" onclick="toggleDistrict('Khulna')" d="M215,430 L250,425 L238,510 L200,498 Z"/>
-            <path id="shape-Bagerhat" class="map-district-shape" onclick="toggleDistrict('Bagerhat')" d="M255,432 L292,428 L278,525 L242,512 Z"/>
+            <path id="shape-Kushtia" class="map-district-shape" onclick="toggleDistrict('Kushtia')" d="M205,245 L240,240 L230,275 L195,270 Z"/>
+            <path id="shape-Meherpur" class="map-district-shape" onclick="toggleDistrict('Meherpur')" d="M175,235 L210,230 L200,265 L165,260 Z"/>
+            <path id="shape-Chuadanga" class="map-district-shape" onclick="toggleDistrict('Chuadanga')" d="M185,270 L220,265 L210,300 L175,295 Z"/>
+            <path id="shape-Jhenaidah" class="map-district-shape" onclick="toggleDistrict('Jhenaidah')" d="M225,280 L260,275 L250,315 L215,310 Z"/>
+            <path id="shape-Magura" class="map-district-shape" onclick="toggleDistrict('Magura')" d="M260,285 L295,280 L285,320 L250,315 Z"/>
+            <path id="shape-Narail" class="map-district-shape" onclick="toggleDistrict('Narail')" d="M255,325 L290,320 L280,355 L245,350 Z"/>
+            <path id="shape-Jessore" class="map-district-shape" onclick="toggleDistrict('Jessore')" d="M210,315 L245,310 L235,350 L200,345 Z"/>
+            <path id="shape-Satkhira" class="map-district-shape" onclick="toggleDistrict('Satkhira')" d="M175,355 L215,350 L200,420 L160,410 Z"/>
+            <path id="shape-Khulna" class="map-district-shape" onclick="toggleDistrict('Khulna')" d="M220,360 L255,355 L245,430 L205,420 Z"/>
+            <path id="shape-Bagerhat" class="map-district-shape" onclick="toggleDistrict('Bagerhat')" d="M260,360 L300,355 L285,445 L245,435 Z"/>
 
             <!-- Barisal Division -->
-            <path id="shape-Pirojpur" class="map-district-shape" onclick="toggleDistrict('Pirojpur')" d="M305,445 L335,442 L325,482 L295,475 Z"/>
-            <path id="shape-Jhalokati" class="map-district-shape" onclick="toggleDistrict('Jhalokati')" d="M340,445 L368,442 L358,478 L330,472 Z"/>
-            <path id="shape-Barisal" class="map-district-shape" onclick="toggleDistrict('Barisal')" d="M322,408 L362,405 L352,448 L312,442 Z"/>
-            <path id="shape-Bhola" class="map-district-shape" onclick="toggleDistrict('Bhola')" d="M378,432 L415,428 L395,512 L360,502 Z"/>
-            <path id="shape-Barguna" class="map-district-shape" onclick="toggleDistrict('Barguna')" d="M305,492 L338,488 L325,528 L292,520 Z"/>
-            <path id="shape-Patuakhali" class="map-district-shape" onclick="toggleDistrict('Patuakhali')" d="M345,488 L382,482 L368,548 L332,538 Z"/>
+            <path id="shape-Pirojpur" class="map-district-shape" onclick="toggleDistrict('Pirojpur')" d="M310,365 L345,360 L335,400 L300,395 Z"/>
+            <path id="shape-Jhalokati" class="map-district-shape" onclick="toggleDistrict('Jhalokati')" d="M350,365 L385,360 L375,395 L340,390 Z"/>
+            <path id="shape-Barisal" class="map-district-shape" onclick="toggleDistrict('Barisal')" d="M325,325 L365,320 L355,365 L315,360 Z"/>
+            <path id="shape-Bhola" class="map-district-shape" onclick="toggleDistrict('Bhola')" d="M390,350 L425,345 L410,430 L375,420 Z"/>
+            <path id="shape-Barguna" class="map-district-shape" onclick="toggleDistrict('Barguna')" d="M305,410 L345,405 L330,445 L295,440 Z"/>
+            <path id="shape-Patuakhali" class="map-district-shape" onclick="toggleDistrict('Patuakhali')" d="M350,405 L390,400 L375,465 L335,455 Z"/>
 
             <!-- Chittagong Division -->
-            <path id="shape-Brahmanbaria" class="map-district-shape" onclick="toggleDistrict('Brahmanbaria')" d="M415,295 L458,290 L445,335 L402,328 Z"/>
-            <path id="shape-Comilla" class="map-district-shape" onclick="toggleDistrict('Comilla')" d="M422,342 L472,338 L458,388 L408,380 Z"/>
-            <path id="shape-Chandpur" class="map-district-shape" onclick="toggleDistrict('Chandpur')" d="M382,345 L418,342 L405,385 L370,378 Z"/>
-            <path id="shape-Lakshmipur" class="map-district-shape" onclick="toggleDistrict('Lakshmipur')" d="M385,392 L420,388 L408,428 L372,420 Z"/>
-            <path id="shape-Noakhali" class="map-district-shape" onclick="toggleDistrict('Noakhali')" d="M425,392 L465,388 L452,438 L412,430 Z"/>
-            <path id="shape-Feni" class="map-district-shape" onclick="toggleDistrict('Feni')" d="M472,382 L505,378 L492,415 L458,410 Z"/>
-            <path id="shape-Khagrachhari" class="map-district-shape" onclick="toggleDistrict('Khagrachhari')" d="M510,340 L550,335 L538,388 L498,380 Z"/>
-            <path id="shape-Rangamati" class="map-district-shape" onclick="toggleDistrict('Rangamati')" d="M512,392 L570,385 L548,475 L490,462 Z"/>
-            <path id="shape-Chittagong" class="map-district-shape" onclick="toggleDistrict('Chittagong')" d="M465,425 L508,418 L485,508 L442,495 Z"/>
-            <path id="shape-Bandarban" class="map-district-shape" onclick="toggleDistrict('Bandarban')" d="M510,485 L565,475 L535,585 L480,572 Z"/>
-            <path id="shape-CoxsBazar" class="map-district-shape" onclick="toggleDistrict('CoxsBazar')" d="M468,515 L505,508 L482,615 L445,602 Z"/>
+            <path id="shape-Brahmanbaria" class="map-district-shape" onclick="toggleDistrict('Brahmanbaria')" d="M415,225 L460,220 L445,265 L400,260 Z"/>
+            <path id="shape-Comilla" class="map-district-shape" onclick="toggleDistrict('Comilla')" d="M425,270 L475,265 L460,315 L410,310 Z"/>
+            <path id="shape-Chandpur" class="map-district-shape" onclick="toggleDistrict('Chandpur')" d="M380,270 L420,265 L405,310 L365,305 Z"/>
+            <path id="shape-Lakshmipur" class="map-district-shape" onclick="toggleDistrict('Lakshmipur')" d="M385,315 L425,310 L410,350 L370,345 Z"/>
+            <path id="shape-Noakhali" class="map-district-shape" onclick="toggleDistrict('Noakhali')" d="M430,315 L475,310 L460,360 L415,355 Z"/>
+            <path id="shape-Feni" class="map-district-shape" onclick="toggleDistrict('Feni')" d="M480,310 L515,305 L500,345 L465,340 Z"/>
+            <path id="shape-Khagrachhari" class="map-district-shape" onclick="toggleDistrict('Khagrachhari')" d="M515,270 L555,265 L540,320 L500,315 Z"/>
+            <path id="shape-Rangamati" class="map-district-shape" onclick="toggleDistrict('Rangamati')" d="M515,325 L580,315 L555,405 L490,390 Z"/>
+            <path id="shape-Chittagong" class="map-district-shape" onclick="toggleDistrict('Chittagong')" d="M465,355 L510,345 L485,435 L440,425 Z"/>
+            <path id="shape-Bandarban" class="map-district-shape" onclick="toggleDistrict('Bandarban')" d="M510,410 L570,400 L540,510 L480,495 Z"/>
+            <path id="shape-CoxsBazar" class="map-district-shape" onclick="toggleDistrict('CoxsBazar')" d="M470,440 L510,435 L485,535 L445,525 Z"/>
           </svg>
         </div>
 

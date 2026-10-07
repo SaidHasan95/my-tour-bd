@@ -205,8 +205,9 @@
 
     .brand-footer {
       border-top: 1px solid #cbd5e1; margin-top: 14px; padding-top: 10px;
-      display: flex; justify-content: center; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 700; color: #1e293b;
+      display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: 700; color: #1e293b; flex-wrap: wrap; gap: 8px;
     }
+    .footer-left { display: flex; align-items: center; gap: 6px; }
     .brand-logo-icon { width: 16px; height: 16px; background: var(--accent-green); border-radius: 4px; display: inline-block; }
 
     .download-card { background: #ffffff; border-radius: 16px; padding: 15px; margin-top: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -271,7 +272,7 @@
               <div class="level-review" id="level-review">ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।</div>
             </div>
           </div>
-          <div class="stats-score" id="stats-score">০<span>/৬৪</span></div>
+          <div class="stats-score" id="stats-score"><span>/৬৪</span></div>
         </div>
 
         <!-- Professional Connected Map Layout with Bangla District Names Inside -->
@@ -378,9 +379,18 @@
         </div>
 
         <div class="brand-footer">
-          <span class="brand-logo-icon"></span>
-          <span>My Tour Bangladesh</span>
-          <span style="color:#94a3b8; font-weight: normal;">· Developer by Said Hasan</span>
+          <div class="footer-left">
+            <span class="brand-logo-icon"></span>
+            <span>My Tour Bangladesh</span>
+            <span style="color:#94a3b8; font-weight: normal;">· Developer by Said Hasan</span>
+          </div>
+          <!-- Live Visitor Counter Badge -->
+          <div style="display: flex; align-items: center; gap: 4px; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.75rem;">
+            <span>👁️ মোট ভিজিটর:</span>
+            <a href="https://www.freecounterstat.com" title="page counter" target="_blank" style="text-decoration: none; display: inline-flex;">
+              <img src="https://counter9.optistats.ovh/private/freecounterstat.ch?c=y6hke3x61k1l7u758f8b3s558b73f7a1" border="0" title="page counter" alt="page counter" style="height: 16px;">
+            </a>
+          </div>
         </div>
       </div>
 

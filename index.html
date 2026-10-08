@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Tour Bangladesh</title>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -133,58 +137,18 @@
     .badge-gold { background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); color: #78350F; border: 2px solid #F59E0B; }
 
     .level-review { font-size: 0.78rem; color: #475569; font-weight: 700; }
-
     .stats-score { font-size: 2.2rem; font-weight: 800; color: var(--accent-green); text-align: right; }
     .stats-score span { font-size: 1.1rem; color: #64748b; font-weight: 500; }
 
-    /* Professional SVG Map Container */
-    .svg-map-container {
-      width: 100%; margin: 15px 0; border-radius: 12px; background: #f8fafc;
-      border: 1px solid #e2e8f0; padding: 15px; display: flex; justify-content: center; align-items: center;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
-    }
-    
-    .map-shape-svg {
-      width: 100%; max-width: 520px; height: auto;
-    }
-    
-    .map-district-shape {
-      fill: #e2e8f0;
-      stroke: #ffffff;
-      stroke-width: 1.2px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .map-district-shape:hover {
-      fill: #cbd5e1;
-      stroke: var(--accent-green);
-      stroke-width: 1.8px;
-    }
-    .map-district-shape.selected {
-      fill: var(--accent-green);
-      stroke: #ffffff;
-      stroke-width: 1.8px;
-    }
-    .map-district-shape.home-selected {
-      fill: #f59e0b;
-      stroke: #78350f;
-      stroke-width: 2px;
-    }
-
-    .map-district-text {
-      font-family: 'Hind Siliguri', sans-serif;
-      font-size: 7px;
-      font-weight: 600;
-      fill: #334155;
-      text-anchor: middle;
-      dominant-baseline: middle;
-      pointer-events: none;
-      user-select: none;
-    }
-    .map-district-shape.selected + .map-district-text,
-    .map-district-shape.home-selected + .map-district-text {
-      fill: #ffffff;
-      font-weight: 700;
+    /* Leaflet Map Container */
+    #map {
+      width: 100%;
+      height: 480px;
+      margin: 15px 0;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background-color: #f8fafc;
+      z-index: 1;
     }
 
     .progress-section { margin-top: 5px; }
@@ -231,7 +195,7 @@
         <span class="count-badge" id="count-badge">০/৬৪</span>
       </div>
 
-      <input type="text" id="search-input" class="search-box" placeholder="জেলা খুঁজুন...">
+      <input type="text" id="search-input" class="search-box" placeholder="জেলা খুঁজুন..." oninput="filterDistricts(this.value)">
       
       <select id="home-district-select" class="home-district-select" onchange="setHomeDistrict(this.value)">
         <option value="">🏠 আপনার নিজের জেলা নির্বাচন করুন...</option>
@@ -272,100 +236,18 @@
               <div class="level-review" id="level-review">ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।</div>
             </div>
           </div>
-          <div class="stats-score" id="stats-score"><span>/৬৪</span></div>
+          <div class="stats-score" id="stats-score">০<span>/৬৪</span></div>
         </div>
 
-        <!-- Professional Connected Map Layout with Bangla District Names Inside -->
-        <div class="svg-map-container">
-          <svg class="map-shape-svg" viewBox="0 0 420 540" xmlns="http://www.w3.org/2000/svg">
-            <!-- Rangpur Division -->
-            <g onclick="toggleDistrict('Panchagarh')"><path id="shape-Panchagarh" class="map-district-shape" d="M120,30 L150,30 L155,55 L125,55 Z"/><text x="137" y="43" class="map-district-text">পঞ্চগড়</text></g>
-            <g onclick="toggleDistrict('Thakurgaon')"><path id="shape-Thakurgaon" class="map-district-shape" d="M110,60 L140,60 L145,90 L115,85 Z"/><text x="128" y="74" class="map-district-text">ঠাকুরগাঁও</text></g>
-            <g onclick="toggleDistrict('Dinajpur')"><path id="shape-Dinajpur" class="map-district-shape" d="M145,60 L185,55 L190,105 L140,110 Z"/><text x="165" y="83" class="map-district-text">দিনাজপুর</text></g>
-            <g onclick="toggleDistrict('Nilphamari')"><path id="shape-Nilphamari" class="map-district-shape" d="M160,30 L195,30 L190,52 L155,52 Z"/><text x="175" y="41" class="map-district-text">নীলফামারী</text></g>
-            <g onclick="toggleDistrict('Lalmonirhat')"><path id="shape-Lalmonirhat" class="map-district-shape" d="M200,30 L230,42 L215,65 L195,52 Z"/><text x="210" y="48" class="map-district-text">লালমনিরহাট</text></g>
-            <g onclick="toggleDistrict('Rangpur')"><path id="shape-Rangpur" class="map-district-shape" d="M195,60 L225,60 L220,100 L190,95 Z"/><text x="208" y="78" class="map-district-text">রংপুর</text></g>
-            <g onclick="toggleDistrict('Kurigram')"><path id="shape-Kurigram" class="map-district-shape" d="M230,55 L255,72 L240,115 L220,100 Z"/><text x="236" y="85" class="map-district-text">কুড়িগ্রাম</text></g>
-            <g onclick="toggleDistrict('Gaibandha')"><path id="shape-Gaibandha" class="map-district-shape" d="M190,105 L225,105 L215,135 L180,130 Z"/><text x="202" y="119" class="map-district-text">গাইবান্ধা</text></g>
-
-            <!-- Rajshahi Division -->
-            <g onclick="toggleDistrict('Joypurhat')"><path id="shape-Joypurhat" class="map-district-shape" d="M150,115 L180,110 L175,135 L145,130 Z"/><text x="162" y="122" class="map-district-text">জয়পুরহাট</text></g>
-            <g onclick="toggleDistrict('Bogura')"><path id="shape-Bogura" class="map-district-shape" d="M185,115 L215,115 L210,155 L180,150 Z"/><text x="198" y="134" class="map-district-text">বগুড়া</text></g>
-            <g onclick="toggleDistrict('Naogaon')"><path id="shape-Naogaon" class="map-district-shape" d="M125,115 L145,115 L140,155 L115,150 Z"/><text x="130" y="133" class="map-district-text">নওগাঁ</text></g>
-            <g onclick="toggleDistrict('Natore')"><path id="shape-Natore" class="map-district-shape" d="M150,158 L180,155 L175,180 L145,175 Z"/><text x="162" y="167" class="map-district-text">নাটোর</text></g>
-            <g onclick="toggleDistrict('Nawabganj')"><path id="shape-Nawabganj" class="map-district-shape" d="M100,155 L125,155 L120,190 L95,182 Z"/><text x="110" y="172" class="map-district-text">চাঁপাইনবাবগঞ্জ</text></g>
-            <g onclick="toggleDistrict('Rajshahi')"><path id="shape-Rajshahi" class="map-district-shape" d="M130,160 L150,160 L145,195 L125,190 Z"/><text x="138" y="177" class="map-district-text">রাজশাহী</text></g>
-            <g onclick="toggleDistrict('Sirajganj')"><path id="shape-Sirajganj" class="map-district-shape" d="M215,145 L245,140 L235,185 L210,180 Z"/><text x="226" y="163" class="map-district-text">সিরাজগঞ্জ</text></g>
-            <g onclick="toggleDistrict('Pabna')"><path id="shape-Pabna" class="map-district-shape" d="M185,180 L215,178 L210,205 L180,200 Z"/><text x="198" y="191" class="map-district-text">পাবনা</text></g>
-
-            <!-- Mymensingh Division -->
-            <g onclick="toggleDistrict('Jamalpur')"><path id="shape-Jamalpur" class="map-district-shape" d="M225,105 L250,105 L245,140 L220,135 Z"/><text x="235" y="122" class="map-district-text">জামালপুর</text></g>
-            <g onclick="toggleDistrict('Sherpur')"><path id="shape-Sherpur" class="map-district-shape" d="M255,100 L280,105 L270,135 L250,130 Z"/><text x="264" y="117" class="map-district-text">শেরপুর</text></g>
-            <g onclick="toggleDistrict('Mymensingh')"><path id="shape-Mymensingh" class="map-district-shape" d="M255,140 L295,135 L290,172 L250,168 Z"/><text x="272" y="154" class="map-district-text">ময়মনসিংহ</text></g>
-            <g onclick="toggleDistrict('Netrokona')"><path id="shape-Netrokona" class="map-district-shape" d="M285,110 L320,115 L310,150 L275,145 Z"/><text x="298" y="128" class="map-district-text">নেত্রকোণা</text></g>
-
-            <!-- Sylhet Division -->
-            <g onclick="toggleDistrict('Sunamganj')"><path id="shape-Sunamganj" class="map-district-shape" d="M325,115 L365,110 L360,145 L320,145 Z"/><text x="342" y="128" class="map-district-text">সুনামগঞ্জ</text></g>
-            <g onclick="toggleDistrict('Sylhet')"><path id="shape-Sylhet" class="map-district-shape" d="M370,115 L410,120 L400,158 L365,152 Z"/><text x="386" y="136" class="map-district-text">সিলেট</text></g>
-            <g onclick="toggleDistrict('Moulvibazar')"><path id="shape-Moulvibazar" class="map-district-shape" d="M365,160 L405,160 L395,195 L355,190 Z"/><text x="380" y="177" class="map-district-text">মৌলভীবাজার</text></g>
-            <g onclick="toggleDistrict('Habiganj')"><path id="shape-Habiganj" class="map-district-shape" d="M325,150 L360,150 L350,185 L315,180 Z"/><text x="338" y="167" class="map-district-text">হবিগঞ্জ</text></g>
-
-            <!-- Dhaka Division -->
-            <g onclick="toggleDistrict('Tangail')"><path id="shape-Tangail" class="map-district-shape" d="M220,175 L248,172 L242,215 L215,210 Z"/><text x="232" y="193" class="map-district-text">টাঙ্গাইল</text></g>
-            <g onclick="toggleDistrict('Kishoreganj')"><path id="shape-Kishoreganj" class="map-district-shape" d="M295,165 L325,165 L320,210 L290,205 Z"/><text x="308" y="187" class="map-district-text">কিশোরগঞ্জ</text></g>
-            <g onclick="toggleDistrict('Manikganj')"><path id="shape-Manikganj" class="map-district-shape" d="M220,220 L248,218 L242,238 L215,235 Z"/><text x="231" y="228" class="map-district-text">মানিকগঞ্জ</text></g>
-            <g onclick="toggleDistrict('Dhaka')"><path id="shape-Dhaka" class="map-district-shape" d="M252,220 L280,218 L275,245 L248,242 Z"/><text x="264" y="231" class="map-district-text">ঢাকা</text></g>
-            <g onclick="toggleDistrict('Gazipur')"><path id="shape-Gazipur" class="map-district-shape" d="M255,195 L282,195 L278,215 L252,215 Z"/><text x="267" y="205" class="map-district-text">গাজীপুর</text></g>
-            <g onclick="toggleDistrict('Narsingdi')"><path id="shape-Narsingdi" class="map-district-shape" d="M285,212 L310,212 L305,238 L280,235 Z"/><text x="295" y="225" class="map-district-text">নরসিংদী</text></g>
-            <g onclick="toggleDistrict('Narayanganj')"><path id="shape-Narayanganj" class="map-district-shape" d="M278,248 L300,248 L295,265 L272,262 Z"/><text x="286" y="256" class="map-district-text">নারায়ণগঞ্জ</text></g>
-            <g onclick="toggleDistrict('Munshiganj')"><path id="shape-Munshiganj" class="map-district-shape" d="M250,248 L272,248 L268,268 L245,265 Z"/><text x="258" y="258" class="map-district-text">মুন্সিগঞ্জ</text></g>
-            <g onclick="toggleDistrict('Faridpur')"><path id="shape-Faridpur" class="map-district-shape" d="M215,245 L242,242 L238,278 L210,272 Z"/><text x="226" y="260" class="map-district-text">ফরিদপুর</text></g>
-            <g onclick="toggleDistrict('Rajbari')"><path id="shape-Rajbari" class="map-district-shape" d="M185,225 L212,225 L208,252 L180,248 Z"/><text x="196" y="238" class="map-district-text">রাজবাড়ী</text></g>
-            <g onclick="toggleDistrict('Gopalganj')"><path id="shape-Gopalganj" class="map-district-shape" d="M215,282 L240,282 L235,315 L210,310 Z"/><text x="225" y="298" class="map-district-text">গোপালগঞ্জ</text></g>
-            <g onclick="toggleDistrict('Madaripur')"><path id="shape-Madaripur" class="map-district-shape" d="M245,272 L268,272 L262,300 L240,295 Z"/><text x="254" y="286" class="map-district-text">মাদারীপুর</text></g>
-            <g onclick="toggleDistrict('Shariatpur')"><path id="shape-Shariatpur" class="map-district-shape" d="M272,270 L295,270 L290,298 L268,295 Z"/><text x="281" y="284" class="map-district-text">শরীয়তপুর</text></g>
-
-            <!-- Khulna Division -->
-            <g onclick="toggleDistrict('Kushtia')"><path id="shape-Kushtia" class="map-district-shape" d="M150,228 L178,225 L172,250 L145,245 Z"/><text x="161" y="237" class="map-district-text">কুষ্টিয়া</text></g>
-            <g onclick="toggleDistrict('Meherpur')"><path id="shape-Meherpur" class="map-district-shape" d="M122,220 L145,220 L140,242 L118,238 Z"/><text x="131" y="231" class="map-district-text">মেহেরপুর</text></g>
-            <g onclick="toggleDistrict('Chuadanga')"><path id="shape-Chuadanga" class="map-district-shape" d="M130,248 L152,248 L148,272 L125,268 Z"/><text x="138" y="260" class="map-district-text">চুয়াডাঙ্গা</text></g>
-            <g onclick="toggleDistrict('Jhenaidah')"><path id="shape-Jhenaidah" class="map-district-shape" d="M155,252 L178,250 L172,278 L150,275 Z"/><text x="164" y="264" class="map-district-text">ঝিনাইদহ</text></g>
-            <g onclick="toggleDistrict('Magura')"><path id="shape-Magura" class="map-district-shape" d="M182,255 L205,255 L200,280 L178,278 Z"/><text x="191" y="267" class="map-district-text">মাগুরা</text></g>
-            <g onclick="toggleDistrict('Narail')"><path id="shape-Narail" class="map-district-shape" d="M182,284 L205,284 L200,305 L178,302 Z"/><text x="191" y="294" class="map-district-text">নড়াইল</text></g>
-            <g onclick="toggleDistrict('Jessore')"><path id="shape-Jessore" class="map-district-shape" d="M148,280 L175,278 L170,308 L142,305 Z"/><text x="158" y="293" class="map-district-text">যশোর</text></g>
-            <g onclick="toggleDistrict('Satkhira')"><path id="shape-Satkhira" class="map-district-shape" d="M130,312 L158,308 L152,352 L125,345 Z"/><text x="141" y="330" class="map-district-text">সাতক্ষীরা</text></g>
-            <g onclick="toggleDistrict('Khulna')"><path id="shape-Khulna" class="map-district-shape" d="M162,312 L190,308 L185,352 L158,348 Z"/><text x="174" y="330" class="map-district-text">খুলনা</text></g>
-            <g onclick="toggleDistrict('Bagerhat')"><path id="shape-Bagerhat" class="map-district-shape" d="M195,310 L222,305 L218,348 L190,345 Z"/><text x="206" y="327" class="map-district-text">বাগেরহাট</text></g>
-
-            <!-- Barisal Division -->
-            <g onclick="toggleDistrict('Pirojpur')"><path id="shape-Pirojpur" class="map-district-shape" d="M228,320 L248,320 L245,348 L225,345 Z"/><text x="236" y="334" class="map-district-text">পিরোজপুর</text></g>
-            <g onclick="toggleDistrict('Jhalokati')"><path id="shape-Jhalokati" class="map-district-shape" d="M252,320 L272,320 L268,345 L248,342 Z"/><text x="260" y="332" class="map-district-text">ঝালকাঠি</text></g>
-            <g onclick="toggleDistrict('Barisal')"><path id="shape-Barisal" class="map-district-shape" d="M255,295 L285,295 L280,320 L252,318 Z"/><text x="268" y="307" class="map-district-text">বরিশাল</text></g>
-            <g onclick="toggleDistrict('Bhola')"><path id="shape-Bhola" class="map-district-shape" d="M292,315 L320,312 L315,362 L288,358 Z"/><text x="304" y="337" class="map-district-text">ভোলা</text></g>
-            <g onclick="toggleDistrict('Barguna')"><path id="shape-Barguna" class="map-district-shape" d="M228,352 L252,352 L248,378 L225,375 Z"/><text x="238" y="365" class="map-district-text">বরগুনা</text></g>
-            <g onclick="toggleDistrict('Patuakhali')"><path id="shape-Patuakhali" class="map-district-shape" d="M255,350 L282,348 L278,388 L252,385 Z"/><text x="267" y="368" class="map-district-text">পটুয়াখালী</text></g>
-
-            <!-- Chittagong Division -->
-            <g onclick="toggleDistrict('Brahmanbaria')"><path id="shape-Brahmanbaria" class="map-district-shape" d="M305,215 L335,212 L330,238 L300,235 Z"/><text x="317" y="224" class="map-district-text">ব্রাহ্মণবাড়িয়া</text></g>
-            <g onclick="toggleDistrict('Comilla')"><path id="shape-Comilla" class="map-district-shape" d="M312,242 L345,240 L340,272 L308,268 Z"/><text x="326" y="256" class="map-district-text">কুমিল্লা</text></g>
-            <g onclick="toggleDistrict('Chandpur')"><path id="shape-Chandpur" class="map-district-shape" d="M280,242 L305,242 L300,268 L275,265 Z"/><text x="290" y="255" class="map-district-text">চাঁদপুর</text></g>
-            <g onclick="toggleDistrict('Lakshmipur')"><path id="shape-Lakshmipur" class="map-district-shape" d="M285,275 L310,272 L305,298 L280,295 Z"/><text x="295" y="285" class="map-district-text">লক্ষ্মীপুর</text></g>
-            <g onclick="toggleDistrict('Noakhali')"><path id="shape-Noakhali" class="map-district-shape" d="M315,275 L345,272 L340,302 L310,298 Z"/><text x="327" y="287" class="map-district-text">নোয়াখালী</text></g>
-            <g onclick="toggleDistrict('Feni')"><path id="shape-Feni" class="map-district-shape" d="M350,270 L375,268 L370,292 L345,290 Z"/><text x="360" y="280" class="map-district-text">ফেনী</text></g>
-            <g onclick="toggleDistrict('Khagrachhari')"><path id="shape-Khagrachhari" class="map-district-shape" d="M380,240 L410,238 L405,275 L375,272 Z"/><text x="392" y="256" class="map-district-text">খাগড়াছড়ি</text></g>
-            <g onclick="toggleDistrict('Rangamati')"><path id="shape-Rangamati" class="map-district-shape" d="M380,280 L418,278 L412,335 L375,330 Z"/><text x="396" y="306" class="map-district-text">রাঙামাটি</text></g>
-            <g onclick="toggleDistrict('Chittagong')"><path id="shape-Chittagong" class="map-district-shape" d="M348,308 L375,305 L370,358 L342,352 Z"/><text x="358" y="331" class="map-district-text">চট্টগ্রাম</text></g>
-            <g onclick="toggleDistrict('Bandarban')"><path id="shape-Bandarban" class="map-district-shape" d="M378,342 L412,338 L405,405 L372,400 Z"/><text x="391" y="371" class="map-district-text">বান্দরবান</text></g>
-            <g onclick="toggleDistrict('CoxsBazar')"><path id="shape-CoxsBazar" class="map-district-shape" d="M348,365 L370,362 L362,425 L340,420 Z"/><text x="355" y="393" class="map-district-text">কক্সবাজার</text></g>
-          </svg>
-        </div>
+        <!-- Real Leaflet Interactive Map Container -->
+        <div id="map"></div>
 
         <div class="progress-section">
           <div class="progress-bar-bg">
             <div class="progress-bar-fill" id="progress-fill"></div>
           </div>
           <div class="progress-info">
-            <span id="percentage-text">০% বাংলাদেশ ঘোরা হয়েছে</span>
+            <span id="percentage-text">০% বাংলাদেশ ঘোরা হয়েছে</span>
             <span class="progress-subtext" id="div-stats-text">০টি জেলা · ৮টির মধ্যে ০টি বিভাগ</span>
           </div>
         </div>
@@ -384,12 +266,6 @@
             <span>My Tour Bangladesh</span>
             <span style="color:#94a3b8; font-weight: normal;">· Developer by Said Hasan</span>
           </div>
-          <!-- Simple Supported Live Visitor Counter Widget -->
-          <div style="display: flex; align-items: center; gap: 6px; background: #f1f5f9; padding: 3px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.75rem;">
-            <span>👁️ মোট ভিজিটর:</span>
-            <script type="text/javascript" src="https://www.freevisitorcounters.com/auth.php?id=973146436f966141470487373f7396c21e7d0139"></script>
-            <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1283239/t/5"></script>
-          </div>
         </div>
       </div>
 
@@ -404,6 +280,19 @@
     </div>
   </div>
 
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- বাংলাদেশ জেলার জিওসন ডেটা (আপনার আগের ডেটা এখানে যুক্ত করা হয়েছে) -->
+  <script>
+    var bdGeoData = {
+        "type": "FeatureCollection",
+        "features": [
+            // আপনার bangladesh.geojson ফাইলের ভেতরের সব ফিচার বা অবজেক্টগুলো এখানে বসবে
+        ]
+    };
+  </script>
+
   <script>
     const divisionsMap = {
       "Rangpur": ["Panchagarh", "Thakurgaon", "Dinajpur", "Nilphamari", "Lalmonirhat", "Rangpur", "Kurigram", "Gaibandha"],
@@ -414,17 +303,6 @@
       "Khulna": ["Kushtia", "Meherpur", "Chuadanga", "Jhenaidah", "Magura", "Narail", "Jessore", "Satkhira", "Khulna", "Bagerhat"],
       "Barisal": ["Pirojpur", "Jhalokati", "Barisal", "Bhola", "Barguna", "Patuakhali"],
       "Chittagong": ["Brahmanbaria", "Comilla", "Chandpur", "Lakshmipur", "Noakhali", "Feni", "Khagrachhari", "Rangamati", "Chittagong", "Bandarban", "Cox's Bazar"]
-    };
-
-    const bnNames = {
-      "Panchagarh": "পঞ্চগড়", "Thakurgaon": "ঠাকুরগাঁও", "Dinajpur": "দিনাজপুর", "Nilphamari": "নীলফামারী", "Lalmonirhat": "লালমনিরহাট", "Rangpur": "রংপুর", "Kurigram": "কুড়িগ্রাম", "Gaibandha": "গাইবান্ধা",
-      "Joypurhat": "জয়পুরহাট", "Bogura": "বগুড়া", "Naogaon": "নওগাঁ", "Natore": "নাটোর", "Nawabganj": "চাঁপাইনবাবগঞ্জ", "Rajshahi": "রাজশাহী", "Sirajganj": "সিরাজগঞ্জ", "Pabna": "পাবনা",
-      "Jamalpur": "জামালপুর", "Sherpur": "শেরপুর", "Mymensingh": "ময়মনসিংহ", "Netrokona": "নেত্রকোণা",
-      "Sunamganj": "সুনামগঞ্জ", "Sylhet": "সিলেট", "Moulvibazar": "মৌলভীবাজার", "Habiganj": "হবিগঞ্জ",
-      "Tangail": "টাঙ্গাইল", "Kishoreganj": "কিশোরগঞ্জ", "Manikganj": "মানিকগঞ্জ", "Dhaka": "ঢাকা", "Gazipur": "গাজীপুর", "Narsingdi": "নরসিংদী", "Narayanganj": "নারায়ণগঞ্জ", "Munshiganj": "মুন্সীগঞ্জ", "Faridpur": "ফরিদপুর", "Rajbari": "রাজবাড়ী", "Gopalganj": "গোপালগঞ্জ", "Madaripur": "মাদারীপুর", "Shariatpur": "শরীয়তপুর",
-      "Kushtia": "কুষ্টিয়া", "Meherpur": "মেহেরপুর", "Chuadanga": "চুয়াডাঙ্গা", "Jhenaidah": "ঝিনাইদহ", "Magura": "মাগুরা", "Narail": "নড়াইল", "Jessore": "যশোর", "Satkhira": "সাতক্ষীরা", "Khulna": "খুলনা", "Bagerhat": "বাগেরহাট",
-      "Pirojpur": "পিরোজপুর", "Jhalokati": "ঝালকাঠি", "Barisal": "বরিশাল", "Bhola": "ভোলা", "Barguna": "বরগুনা", "Patuakhali": "পটুয়াখালী",
-      "Brahmanbaria": "ব্রাহ্মণবাড়িয়া", "Comilla": "কুমিল্লা", "Chandpur": "চাঁদপুর", "Lakshmipur": "লক্ষ্মীপুর", "Noakhali": "নোয়াখালী", "Feni": "ফেনী", "Khagrachhari": "খাগড়াছড়ি", "Rangamati": "রাঙামাটি", "Chittagong": "চট্টগ্রাম", "Bandarban": "বান্দরবান", "Cox's Bazar": "কক্সবাজার"
     };
 
     const divBnNames = {
@@ -438,171 +316,227 @@
       return num.toString().replace(/\d/g, d => bnNums[d]);
     }
 
-    let selectedDistricts = new Set();
+    let visitedDistricts = new Set();
+    let districtLayers = {};
     let homeDistrict = "";
+    let currentAccentColor = "#0d6342";
+
+    // Initialize Map
+    var map = L.map('map', {
+      zoomControl: true,
+      attributionControl: false,
+      dragging: true,
+      scrollWheelZoom: true
+    }).setView([23.6850, 90.3563], 7);
 
     function initApp() {
       buildSidebar();
-      populateHomeDistrictDropdown();
+      loadGeoJsonMap();
       updateUI();
     }
 
-    function populateHomeDistrictDropdown() {
-      const select = document.getElementById('home-district-select');
-      Object.keys(bnNames).sort().forEach(dist => {
-        const opt = document.createElement('option');
-        opt.value = dist;
-        opt.innerText = `🏠 ${bnNames[dist]}`;
-        select.appendChild(opt);
-      });
-    }
+    function loadGeoJsonMap() {
+      if (typeof bdGeoData !== 'undefined' && bdGeoData.features.length > 0) {
+        L.geoJSON(bdGeoData, {
+          style: function(feature) {
+            return {
+              color: "#ffffff",
+              weight: 1.2,
+              fillColor: "#d5ded5",
+              fillOpacity: 0.9
+            };
+          },
+          onEachFeature: function(feature, layer) {
+            let distName = feature.properties.NAME_2 || feature.properties.district || feature.properties.NAME_1 || "জেলা";
+            districtLayers[distName] = layer;
 
-    function setHomeDistrict(distName) {
-      homeDistrict = distName;
-      if (distName) selectedDistricts.add(distName);
-      updateUI();
-    }
+            layer.bindTooltip(distName, {permanent: false, direction: "center"});
 
-    function buildSidebar() {
-      const divisionsListEl = document.getElementById('divisions-list');
-      divisionsListEl.innerHTML = '';
-
-      Object.keys(divisionsMap).forEach(divKey => {
-        const divBlock = document.createElement('div');
-        divBlock.className = 'division-block';
-
-        const divHeader = document.createElement('div');
-        divHeader.className = 'division-header';
-        divHeader.innerHTML = `<span>${divBnNames[divKey]}</span><span id="div-badge-${divKey}" style="font-size:0.75rem; color:#0d6342;">০/${divisionsMap[divKey].length}</span>`;
-
-        const pillsContainer = document.createElement('div');
-        pillsContainer.className = 'district-pills';
-
-        divisionsMap[divKey].forEach(distName => {
-          const pill = document.createElement('button');
-          pill.className = 'pill-btn';
-          const cleanId = distName.replace(/['\s]+/g, '');
-          pill.setAttribute('id', `pill-${cleanId}`);
-          pill.innerText = bnNames[distName] || distName;
-          pill.onclick = () => toggleDistrict(distName);
-          pillsContainer.appendChild(pill);
-        });
-
-        divBlock.appendChild(divHeader);
-        divBlock.appendChild(pillsContainer);
-        divisionsListEl.appendChild(divBlock);
-      });
+            layer.on('click', function() {
+              toggleDistrict(distName);
+            });
+          }
+        }).addTo(map);
+      }
     }
 
     function toggleDistrict(distName) {
-      if (selectedDistricts.has(distName)) {
-        if(distName === homeDistrict) homeDistrict = "";
-        selectedDistricts.delete(distName);
+      if (visitedDistricts.has(distName)) {
+        visitedDistricts.delete(distName);
+        if (districtLayers[distName]) {
+          districtLayers[distName].setStyle({
+            fillColor: distName === homeDistrict ? "#f59e0b" : "#d5ded5",
+            fillOpacity: 0.9
+          });
+        }
       } else {
-        selectedDistricts.add(distName);
+        visitedDistricts.add(distName);
+        if (districtLayers[distName]) {
+          districtLayers[distName].setStyle({
+            fillColor: distName === homeDistrict ? "#f59e0b" : currentAccentColor,
+            fillOpacity: 0.9
+          });
+        }
       }
       updateUI();
+      syncSidebarUI();
+    }
+
+    function setHomeDistrict(distName) {
+      if (homeDistrict && districtLayers[homeDistrict] && !visitedDistricts.has(homeDistrict)) {
+        districtLayers[homeDistrict].setStyle({ fillColor: "#d5ded5" });
+      }
+      homeDistrict = distName;
+      if (distName) {
+        visitedDistricts.add(distName);
+        if (districtLayers[distName]) {
+          districtLayers[distName].setStyle({ fillColor: "#f59e0b", fillOpacity: 0.9 });
+        }
+      }
+      updateUI();
+      syncSidebarUI();
+    }
+
+    function buildSidebar() {
+      const container = document.getElementById('divisions-list');
+      const homeSelect = document.getElementById('home-district-select');
+      container.innerHTML = '';
+
+      for (let [div, districts] of Object.entries(divisionsMap)) {
+        let divBlock = document.createElement('div');
+        divBlock.className = 'division-block';
+        
+        let header = document.createElement('div');
+        header.className = 'division-header';
+        header.innerHTML = `<span>${divBnNames[div]}</span>`;
+        divBlock.appendChild(header);
+
+        let pillsWrap = document.createElement('div');
+        pillsWrap.className = 'district-pills';
+
+        districts.forEach(dist => {
+          // Populate Home Select
+          let opt = document.createElement('option');
+          opt.value = dist;
+          opt.innerText = `🏠 ${dist}`;
+          homeSelect.appendChild(opt);
+
+          let pill = document.createElement('button');
+          pill.className = 'pill-btn';
+          pill.id = `pill-${dist}`;
+          pill.innerText = dist;
+          pill.onclick = () => toggleDistrict(dist);
+          pillsWrap.appendChild(pill);
+        });
+
+        divBlock.appendChild(pillsWrap);
+        container.appendChild(divBlock);
+      }
+    }
+
+    function syncSidebarUI() {
+      for (let dist in districtLayers) {
+        let pill = document.getElementById(`pill-${dist}`);
+        if (pill) {
+          if (visitedDistricts.has(dist)) {
+            pill.classList.add('selected');
+          } else {
+            pill.classList.remove('selected');
+          }
+        }
+      }
     }
 
     function updateUI() {
-      Object.keys(divisionsMap).forEach(divKey => {
-        let divCount = 0;
-        divisionsMap[divKey].forEach(d => {
-          if (selectedDistricts.has(d)) divCount++;
-        });
-        const badge = document.getElementById(`div-badge-${divKey}`);
-        if(badge) badge.innerText = `${toBanglaNum(divCount)}/${toBanglaNum(divisionsMap[divKey].length)}`;
-      });
+      let count = visitedDistricts.size;
+      let countStr = toBanglaNum(count);
+      
+      document.getElementById('count-badge').innerText = `${countStr}/৬৪`;
+      document.getElementById('stats-score').innerHTML = `${countStr}<span>/৬৪</span>`;
 
-      Object.keys(bnNames).forEach(distName => {
-        const cleanId = distName.replace(/['\s]+/g, '');
-        const pill = document.getElementById(`pill-${cleanId}`);
-        const shape = document.getElementById(`shape-${cleanId}`);
-        const isSelected = selectedDistricts.has(distName);
-        const isHome = (distName === homeDistrict);
+      let percent = Math.round((count / 64) * 100);
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+      document.getElementById('percentage-text').innerText = `${toBanglaNum(percent)}% বাংলাদেশ ঘোরা হয়েছে`;
 
-        if (pill) {
-          if (isSelected) pill.classList.add('selected');
-          else pill.classList.remove('selected');
-        }
-
-        if (shape) {
-          shape.className.baseVal = "map-district-shape";
-          if (isHome) {
-            shape.classList.add('home-selected');
-          } else if (isSelected) {
-            shape.classList.add('selected');
-          }
-        }
-      });
-
-      const count = selectedDistricts.size;
-      const percentage = Math.round((count / 64) * 100);
-
-      const levelBadgeEl = document.getElementById('level-badge');
-      const levelReviewEl = document.getElementById('level-review');
-
-      if (count <= 20) {
-        levelBadgeEl.className = "level-badge badge-bronze";
-        levelBadgeEl.innerHTML = "🥉 ব্রোঞ্জ পদক — শিক্ষানবিশ ভ্রমণকারী";
-        levelReviewEl.innerHTML = "ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।";
-      } else if (count <= 45) {
-        levelBadgeEl.className = "level-badge badge-silver";
-        levelBadgeEl.innerHTML = "🥈 সিলভার পদক — অভিজ্ঞ ভ্রমণকারী";
-        levelReviewEl.innerHTML = "দারুণ অগ্রগতি! আপনি বাংলাদেশের রূপ-বৈচিত্র্যের এক সুন্দর অভিজ্ঞ পর্যটক।";
-      } else {
-        levelBadgeEl.className = "level-badge badge-gold";
-        levelBadgeEl.innerHTML = "🥇 গোল্ডেন পদক — বাংলাদেশ জয়ী";
-        levelReviewEl.innerHTML = "অসাধারণ কীর্তি! পুরো বাংলাদেশ ভ্রমণের এক অনন্য ও অনুপ্রেরণাদায়ী রেকর্ড আপনার।";
+      // Calculate visited divisions
+      let visitedDivsCount = 0;
+      for (let [div, districts] of Object.entries(divisionsMap)) {
+        let hasVisitedAny = districts.some(d => visitedDistricts.has(d));
+        if (hasVisitedAny) visitedDivsCount++;
       }
+      document.getElementById('div-stats-text').innerText = `${countStr}টি জেলা · ৮টির মধ্যে ${toBanglaNum(visitedDivsCount)}টি বিভাগ`;
 
-      const activeDivisions = new Set();
-      Object.keys(divisionsMap).forEach(div => {
-        divisionsMap[div].forEach(d => {
-          if (selectedDistricts.has(d)) activeDivisions.add(div);
-        });
-      });
-
-      document.getElementById('count-badge').innerText = `${toBanglaNum(count)}/৬৪`;
-      document.getElementById('stats-score').innerHTML = `${toBanglaNum(count)}<span>/৬৪</span>`;
-      document.getElementById('progress-fill').style.width = `${percentage}%`;
-      document.getElementById('percentage-text').innerText = `${toBanglaNum(percentage)}% বাংলাদেশ ঘোরা হয়েছে`;
-      document.getElementById('div-stats-text').innerText = `${toBanglaNum(count)}টি জেলা · ৮টির মধ্যে ${toBanglaNum(activeDivisions.size)}টি বিভাগ`;
+      // Update Badges
+      let badgeEl = document.getElementById('level-badge');
+      let reviewEl = document.getElementById('level-review');
+      if (count >= 40) {
+        badgeEl.className = "level-badge badge-gold";
+        badgeEl.innerHTML = "🥇 গোল্ড পদক — অভিজ্ঞ পর্যটক";
+        reviewEl.innerText = "অসাধারণ ভ্রমণ দক্ষতা! দেশের প্রায় পুরোটা আপনার চেনা।";
+      } else if (count >= 15) {
+        badgeEl.className = "level-badge badge-silver";
+        badgeEl.innerHTML = "🥈 সিলভার পদক — ভ্রমণপ্রেমী";
+        reviewEl.innerText = "দারুণ এগিয়ে যাচ্ছেন! আপনার ভ্রমণ তালিকা বেশ সমৃদ্ধ।";
+      } else {
+        badgeEl.className = "level-badge badge-bronze";
+        badgeEl.innerHTML = "🥉 ব্রোঞ্জ পদক — শিক্ষানবিশ ভ্রমণকারী";
+        reviewEl.innerText = "ভ্রমণ যাত্রার সুন্দর সূচনা! দেশের রূপ দেখা মাত্র শুরু হলো।";
+      }
     }
 
-    function setTheme(accentColor, cardBgColor) {
+    function setTheme(accentColor, cardBg) {
+      currentAccentColor = accentColor;
       document.documentElement.style.setProperty('--accent-green', accentColor);
-      document.documentElement.style.setProperty('--card-bg', cardBgColor);
-      updateUI();
-    }
-
-    function updateName() {
-      const val = document.getElementById('user-name-input').value.trim();
-      document.getElementById('display-name').innerText = val ? `${val}-এর বাংলাদেশ` : 'আমার বাংলাদেশ';
+      
+      // Update selected district colors on map
+      visitedDistricts.forEach(dist => {
+        if (districtLayers[dist] && dist !== homeDistrict) {
+          districtLayers[dist].setStyle({ fillColor: accentColor });
+        }
+      });
     }
 
     function loadAvatar(event) {
       const file = event.target.files[0];
       if (file) {
-        const imgEl = document.getElementById('display-avatar');
-        imgEl.src = URL.createObjectURL(file);
-        imgEl.style.display = 'inline-block';
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const avatarImg = document.getElementById('display-avatar');
+          avatarImg.src = e.target.result;
+          avatarImg.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updateName() {
+      const nameVal = document.getElementById('user-name-input').value;
+      document.getElementById('display-name').innerText = nameVal ? nameVal : "আমার বাংলাদেশ";
+    }
+
+    function filterDistricts(query) {
+      let q = query.toLowerCase();
+      for (let [div, districts] of Object.entries(divisionsMap)) {
+        districts.forEach(dist => {
+          let pill = document.getElementById(`pill-${dist}`);
+          if (pill) {
+            if (dist.toLowerCase().includes(q)) {
+              pill.style.display = 'inline-block';
+            } else {
+              pill.style.display = 'none';
+            }
+          }
+        });
       }
     }
 
     function downloadMap(format) {
-      const card = document.getElementById('export-card');
-
-      html2canvas(card, { useCORS: true, scale: 3 }).then(canvas => {
-        if (format === 'png') {
+      const exportCard = document.getElementById('export-card');
+      html2canvas(exportCard, { scale: 2, useCORS: true }).then(canvas => {
+        if (format === 'png' || format === 'jpg') {
           const link = document.createElement('a');
-          link.download = 'My-Tour-Bangladesh.png';
-          link.href = canvas.toDataURL('image/png');
-          link.click();
-        } else if (format === 'jpg') {
-          const link = document.createElement('a');
-          link.download = 'My-Tour-Bangladesh.jpg';
-          link.href = canvas.toDataURL('image/jpeg', 0.95);
+          link.download = `my-tour-bangladesh.${format}`;
+          link.href = canvas.toDataURL(`image/${format === 'jpg' ? 'jpeg' : 'png'}`);
           link.click();
         } else if (format === 'pdf') {
           const { jsPDF } = window.jspdf;
@@ -611,17 +545,10 @@
           const imgWidth = 190;
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
           pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
-          pdf.save('My-Tour-Bangladesh.pdf');
+          pdf.save('my-tour-bangladesh.pdf');
         }
       });
     }
-
-    document.getElementById('search-input').addEventListener('input', (e) => {
-      const q = e.target.value.trim().toLowerCase();
-      document.querySelectorAll('.pill-btn').forEach(btn => {
-        btn.style.display = btn.innerText.toLowerCase().includes(q) ? 'inline-block' : 'none';
-      });
-    });
 
     window.onload = initApp;
   </script>
